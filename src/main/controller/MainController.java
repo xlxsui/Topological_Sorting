@@ -81,11 +81,14 @@ public class MainController {
         //获取Controller的实例对象
         ShowController showController = fxmlLoader.getController();
 
+        showController.draw();
 
         //set Icon
         showStage.getIcons().add(new Image("res/Image/icon.png"));
         showStage.setTitle("拓扑排序应用系统");
-        showStage.setScene(new Scene(showRoot, 600, 400));
+
+
+        showStage.setScene(new Scene(showRoot, 600, 700));
         showStage.show();
 
 
@@ -105,13 +108,15 @@ public class MainController {
         //获取Controller的实例对象
         SearchController searchController = fxmlLoader.getController();
         searchController.setStage(thisStage);
-
+        searchController.draw();
 
         //set Icon
         searchStage.getIcons().add(new Image("res/Image/icon.png"));
         searchStage.setTitle("拓扑排序应用系统");
+
         searchStage.setScene(new Scene(searchRoot, 600, 400));
         searchStage.show();
+
     }
 
     public void onExportBtnClicked() {

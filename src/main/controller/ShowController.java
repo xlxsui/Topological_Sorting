@@ -1,19 +1,19 @@
 package main.controller;
 
-import javafx.scene.canvas.Canvas;
+import java.io.File;
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
+import java.net.MalformedURLException;
+
+
 
 public class ShowController {
 
     private Stage thisStage;//当前controller的Stage
-    Canvas cs=new Canvas();
+    @FXML
+    ImageView imageView;
     public void showResults(String[] results) {
 
     }
@@ -22,9 +22,11 @@ public class ShowController {
 
     }
 
-    public void draw() {
-        GraphicsContext gc = cs.getGraphicsContext2D();
-
+    public void draw() throws MalformedURLException {
+        File file = new File("D:/dotGif.png");
+        String localUrl = file.toURI().toURL().toString();
+        Image image  = new Image(localUrl);
+        imageView.setImage(image);
     }
 
     public void zoom() {
@@ -35,31 +37,14 @@ public class ShowController {
 
     }
 
-    private void drawShapes(GraphicsContext gc) {
-        gc.setFill(Color.GREEN);
-        gc.setStroke(Color.BLUE);
-        gc.setLineWidth(5);
-        gc.strokeLine(40, 10, 10, 40);
-        gc.fillOval(10, 60, 30, 30);
-        gc.strokeOval(60, 60, 30, 30);
-        gc.fillRoundRect(110, 60, 30, 30, 10, 10);
-        gc.strokeRoundRect(160, 60, 30, 30, 10, 10);
-        gc.fillArc(10, 110, 30, 30, 45, 240, ArcType.OPEN);
-        gc.fillArc(60, 110, 30, 30, 45, 240, ArcType.CHORD);
-        gc.fillArc(110, 110, 30, 30, 45, 240, ArcType.ROUND);
-        gc.strokeArc(10, 160, 30, 30, 45, 240, ArcType.OPEN);
-        gc.strokeArc(60, 160, 30, 30, 45, 240, ArcType.CHORD);
-        gc.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND);
-        gc.fillPolygon(new double[]{10, 40, 10, 40},
-                new double[]{210, 210, 240, 240}, 4);
-        gc.strokePolygon(new double[]{60, 90, 60, 90},
-                new double[]{210, 210, 240, 240}, 4);
-        gc.strokePolyline(new double[]{110, 140, 110, 140},
-                new double[]{210, 210, 240, 240}, 4);
+    public void init() throws MalformedURLException {
+        ShowController heihei = new ShowController();
+        heihei.draw();
     }
 
     //生成Stage时生成该Stage的Controller，Controller调用该方法把Stage传过来
     public void setStage(Stage stage) {
         thisStage = stage;
+
     }
 }
