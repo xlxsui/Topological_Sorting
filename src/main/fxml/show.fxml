@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:controller="main.controller.ShowController" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" visible="true"
+            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+    <children>
+        <Canvas height="400.0" layoutX="0.0" layoutY="-47.0" scaleX="1.0" scaleY="0.765" width="600.0"/>
+        <TextArea layoutX="0.0" layoutY="306.0" prefHeight="94.0" prefWidth="600.0" wrapText="true"/>
+    </children>
+</AnchorPane>

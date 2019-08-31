@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.InputController">
+    <children>
+        <Label layoutX="270.0" layoutY="71.0" prefHeight="22.0" prefWidth="21.000099999997474" text=","
+               textAlignment="CENTER"/>
+        <Label layoutX="140.0" layoutY="71.0" text="&lt;"/>
+        <Label layoutX="411.0" layoutY="71.0" text="&gt;"/>
+        <TextField layoutX="158.0" layoutY="68.0" prefWidth="112.0"/>
+        <TextField layoutX="281.0" layoutY="68.0" prefWidth="114.0"/>
+        <Button layoutX="192.0" layoutY="111.0" mnemonicParsing="false" text="清空" onMouseClicked="#onClearBtnClicked"/>
+        <Button layoutX="259.0" layoutY="111.0" mnemonicParsing="false" text="添加" onMouseClicked="#onAddBtnClicked"/>
+        <TextArea editable="false" layoutX="126.0" layoutY="141.0" prefHeight="230.0" prefWidth="310.0"
+                  wrapText="true"/>
+        <Button layoutX="494.0" layoutY="67.0" mnemonicParsing="false" text="上一条关系" onMouseClicked="#onLastBtnClicked"/>
+        <Button layoutX="494.0" layoutY="93.0" mnemonicParsing="false" text="下一条关系" onMouseClicked="#onNextBtnClicked"/>
+        <Button layoutX="494.0" layoutY="118.0" mnemonicParsing="false" text="删除该关系"
+                onMouseClicked="#onDeleteBtnClicked"/>
+        <Button layoutX="323.0" layoutY="111.0" mnemonicParsing="false" text="修改" onMouseClicked="#onModifyBtnClicked"/>
+        <Button layoutX="512.0" layoutY="143.0" mnemonicParsing="false" text="导出" onMouseClicked="#onExportBtnClicked"/>
+    </children>
+</AnchorPane>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" visible="true" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.SearchController">
+    <children>
+        <Canvas height="336.0" layoutX="0.0" layoutY="2.0" scaleX="1.0" scaleY="0.765" width="600.0"/>
+        <TextArea layoutX="0.0" layoutY="306.0" prefHeight="94.0" prefWidth="600.0" wrapText="true"/>
+        <HBox layoutX="127.0" layoutY="8.0" prefHeight="33.0" prefWidth="346.0">
+            <children>
+                <TextField promptText="输入要查找的内容">
+                    <HBox.margin>
+                        <Insets right="10.0"/>
+                    </HBox.margin>
+                </TextField>
+                <Button mnemonicParsing="false" text="查找" onMouseClicked="#onSearchBtnClicked"/>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
