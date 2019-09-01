@@ -1,18 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.canvas.Canvas?>
+<?language javascript?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane fx:controller="main.controller.ShowController" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" visible="true"
-            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<!--<AnchorPane fx:controller="main.controller.ShowController" id="AnchorPane" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <ScrollPane fx:id="scrollPane" prefHeight="352.0" prefWidth="600.0" />
+            <TextArea layoutY="351.0" prefHeight="149.0" prefWidth="600.0" />
+        </children>
+</AnchorPane>-->
+<AnchorPane fx:controller="main.controller.ShowController" maxHeight="-Infinity" maxWidth="-Infinity"
+          minHeight="-Infinity" minWidth="-Infinity" prefHeight="1200.0" prefWidth="800.0"
+          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fx:id ="imageView" fitHeight ="350.0" fitWidth ="600.0" layoutX ="1.0" layoutY ="1.0" pickOnBounds ="true" preserveRatio ="true"/>
-        <TextArea layoutX="0.0" layoutY="606.0" prefHeight="94.0" prefWidth="600.0" wrapText="true"/>
+        <HBox prefHeight="666.0" prefWidth="1200.0">
+            <children>
+                <ScrollPane fx:id="scrollPane" prefHeight="666.0" prefWidth="1200.0" fitToHeight="true" fitToWidth="true"
+                            HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <HBox  layoutY="667.0" prefHeight="233.0" prefWidth="1200.0" >
+            <children>
+                <TextArea prefHeight="233.0" prefWidth="1200.0" HBox.hgrow="ALWAYS" wrapText="true" editable="false"/>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>
+
+<!--
+//内嵌浏览器
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.ShowController">
+    <children>
+        <WebView fx:id="webView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    </children>
+</AnchorPane>-->
+
+<!--
+//静态显示一张图
+<AnchorPane fx:controller="main.controller.ShowController" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane">
+    <children>
+        <ImageView fx:id="imageView"/>
+        <TextArea layoutY="257.0" prefHeight="143.0" prefWidth="600.0" />
+    </children>
+</AnchorPane>
+-->

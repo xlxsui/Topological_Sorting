@@ -61,7 +61,7 @@ public class MainController {
             //set Icon
             inputStage.getIcons().add(new Image("res/Image/icon.png"));
             inputStage.setTitle("拓扑排序应用系统");
-            inputStage.setScene(new Scene(inputRoot, 600, 400));
+            inputStage.setScene(new Scene(inputRoot, 600, 550));
             inputStage.show();
         }
 
@@ -82,16 +82,14 @@ public class MainController {
         ShowController showController = fxmlLoader.getController();
 
         showController.draw();
+        showController.zoom();
+        showController.drag();
 
         //set Icon
         showStage.getIcons().add(new Image("res/Image/icon.png"));
         showStage.setTitle("拓扑排序应用系统");
-
-
-        showStage.setScene(new Scene(showRoot, 600, 700));
+        showStage.setScene(new Scene(showRoot, 1200, 900));
         showStage.show();
-
-
     }
 
     public void onSearchBtnClicked() throws Exception {
@@ -102,21 +100,20 @@ public class MainController {
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
         Parent searchRoot = fxmlLoader.load();
 
-
         //新建一个Stage
         Stage searchStage = new Stage();
         //获取Controller的实例对象
         SearchController searchController = fxmlLoader.getController();
-        searchController.setStage(thisStage);
+        //searchController.setStage(thisStage);
+
         searchController.draw();
+        searchController.zoom();
 
         //set Icon
         searchStage.getIcons().add(new Image("res/Image/icon.png"));
         searchStage.setTitle("拓扑排序应用系统");
-
-        searchStage.setScene(new Scene(searchRoot, 600, 400));
+        searchStage.setScene(new Scene(searchRoot, 1200, 900));
         searchStage.show();
-
     }
 
     public void onExportBtnClicked() {
