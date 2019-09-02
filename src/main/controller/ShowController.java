@@ -22,7 +22,7 @@ import javafx.beans.Observable;
 import javafx.event.EventHandler;
 
 
-public class ShowController{
+public class ShowController {
 
     @FXML
     ScrollPane scrollPane;
@@ -31,7 +31,7 @@ public class ShowController{
 
     private Stage thisStage;//当前controller的Stage
 
-    GraphViz gViz=new GraphViz("D:\\","D:\\Graphviz\\bin\\dot.exe");
+    GraphViz gViz = new GraphViz("D:\\", "D:\\Graphviz\\bin\\dot.exe");
 
     public void showResults(String[] results) {
 
@@ -69,6 +69,7 @@ public class ShowController{
         gViz.addln("C->B;");
         gViz.addln("B->D;");
         gViz.addln("C->E;");
+        gViz.addln("C->L;");
         gViz.end_graph();
         try {
             gViz.run();
@@ -80,6 +81,8 @@ public class ShowController{
     }
 
     public void zoom() throws MalformedURLException {
+
+        draw();
         File file = new File("D:/dotGif.gif");
         String localUrl = file.toURI().toURL().toString();
         Image image = new Image(localUrl);
@@ -92,7 +95,7 @@ public class ShowController{
     public void drag() {
 
 
-        imageView.setOnDragDetected(new EventHandler <MouseEvent>() {
+        imageView.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 /* allow MOVE transfer mode */
