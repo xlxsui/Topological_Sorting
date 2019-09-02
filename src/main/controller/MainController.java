@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
@@ -18,13 +19,14 @@ import java.net.URL;
 public class MainController {
     @FXML
     ComboBox comboBox;
+    @FXML
+    Button showButton;
+
 
     private String[] results;
     private Object FileWriteUtil;
 
     private Stage thisStage;//当前controller的Stage
-
-    private Stage showStageTemp;
 
 
     public void onConfirmBtnClicked() throws Exception {
@@ -74,7 +76,8 @@ public class MainController {
 
     }
 
-    public void twice() throws Exception{
+
+    public void onShowBtnClicked() throws Exception {
         URL location = getClass().getResource("../fxml/show.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
@@ -87,9 +90,10 @@ public class MainController {
         //获取Controller的实例对象
         ShowController showController = fxmlLoader.getController();
 
-        //showController.draw();
+        showController.draw();
         showController.zoom();
-        showController.drag();
+        //showController.drag();
+        //showController.initialize();
 
 
         //set Icon
@@ -97,15 +101,8 @@ public class MainController {
         showStage.setTitle("拓扑排序应用系统");
         showStage.setScene(new Scene(showRoot, 1200, 900));
         showStage.show();
-        showStageTemp = showStage;
-
-
-    }
-
-    public void onShowBtnClicked() throws Exception {
-        twice();
-        //showStageTemp.close();
-        //twice();
+        //showStage.close();
+        //showButton.fire();
 }
 
     public void onSearchBtnClicked() throws Exception {

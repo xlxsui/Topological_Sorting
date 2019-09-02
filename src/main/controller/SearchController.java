@@ -12,9 +12,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
+import main.Main;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class SearchController {
     @FXML
@@ -34,6 +39,11 @@ public class SearchController {
 
     public void topologicalSorting() {
 
+    }
+
+    public void showHTML() throws URISyntaxException, IOException {
+        String url = Main.class.getResource("/HTML/index.html").toExternalForm();
+        Desktop.getDesktop().browse(URI.create(url));
     }
 
     public void draw() throws MalformedURLException {
