@@ -7,8 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 
 public class MainController {
@@ -19,6 +23,7 @@ public class MainController {
     private String[] results;
 
     private Stage thisStage;//当前controller的Stage
+    private Object FileWriteUtil;
 
     public void onConfirmBtnClicked() throws Exception {
         String way = comboBox.getValue().toString();
@@ -35,7 +40,7 @@ public class MainController {
             Stage importStage = new Stage();
             //获取Controller的实例对象
             ImportController importController = fxmlLoader.getController();
-            importController.setStage(thisStage);
+            importController.setStage(importStage);
 
 
             //set Icon
@@ -56,7 +61,7 @@ public class MainController {
             Stage inputStage = new Stage();
             //获取Controller的实例对象
             InputController inputController = fxmlLoader.getController();
-
+            //InputController.setStage(inputStage);
 
             //set Icon
             inputStage.getIcons().add(new Image("res/Image/icon.png"));
@@ -80,6 +85,7 @@ public class MainController {
         Stage showStage = new Stage();
         //获取Controller的实例对象
         ShowController showController = fxmlLoader.getController();
+
 
 
         //set Icon
@@ -114,8 +120,36 @@ public class MainController {
         searchStage.show();
     }
 
-    public void onExportBtnClicked() {
+    public void onExportBtnClicked() throws IOException {//导出
         results = topologicalSorting();//接下来把结果写到文件
+
+        boolean flag=true;//判断文件是否已存在，即文件名是否重复
+        String[] results = {"拓","扑","排","序","应","用","系","统"};//测试用，删
+
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showSaveDialog(thisStage);
+
+        FileWriter writer = null;
+        try {
+            if(file.exists()){//文件已存在，则删除覆盖文件
+                flag = false;
+            }
+            // 向目标文件中写入内容
+            // FileWriter(File file, boolean append)，append为true时为追加模式，false或缺省则为覆盖模式
+            writer = new FileWriter(file, flag);
+            for(int i=0;i<results.length;i++)
+            {
+                writer.append(results[i]+"\r\n");//写入String[] results
+            }
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != writer)
+                writer.close();
+        }
 
     }
 

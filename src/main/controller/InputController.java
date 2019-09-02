@@ -34,7 +34,7 @@ public class InputController {
     }
 
     //生成Stage时生成该Stage的Controller，Controller调用该方法把Stage传过来
-    public void setStage(Stage stage) {
-        thisStage = stage;
+    public static void setStage(Stage stage) {
+        //thisStage = stage;
     }
 }
