@@ -10,15 +10,12 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 
 public class MainController {
-
-    private static final int INFORMATION_MESSAGE = 1;
     @FXML
     ComboBox comboBox;
 
@@ -26,6 +23,7 @@ public class MainController {
     private Object FileWriteUtil;
 
     private Stage thisStage;//当前controller的Stage
+
     private Stage showStageTemp;
 
 
@@ -44,7 +42,7 @@ public class MainController {
             Stage importStage = new Stage();
             //获取Controller的实例对象
             ImportController importController = fxmlLoader.getController();
-            importController.setStage(thisStage);
+            importController.setStage(importStage);
 
 
             //set Icon
@@ -65,7 +63,7 @@ public class MainController {
             Stage inputStage = new Stage();
             //获取Controller的实例对象
             InputController inputController = fxmlLoader.getController();
-
+            //InputController.setStage(inputStage);
 
             //set Icon
             inputStage.getIcons().add(new Image("res/Image/icon.png"));
@@ -92,6 +90,7 @@ public class MainController {
         //showController.draw();
         showController.zoom();
         showController.drag();
+
 
         //set Icon
         showStage.getIcons().add(new Image("res/Image/icon.png"));
@@ -133,7 +132,7 @@ public class MainController {
         searchStage.show();
     }
 
-    public void onExportBtnClicked() throws IOException {
+    public void onExportBtnClicked() throws IOException {//导出
         results = topologicalSorting();//接下来把结果写到文件
 
         boolean flag=true;//判断文件是否已存在，即文件名是否重复
