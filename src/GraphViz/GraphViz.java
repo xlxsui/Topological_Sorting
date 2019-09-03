@@ -4,13 +4,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-//
 public class  GraphViz{
     private String runPath = "";
     private String dotPath = "";
     private String runOrder="";
     private String dotCodeFile="input.txt";
-    private String resultGif="dotGif";
+    private String resultGif="";
     private StringBuilder graph = new StringBuilder();
 
     Runtime runtime=Runtime.getRuntime();
@@ -52,9 +51,11 @@ public class  GraphViz{
         }
     }
 
-    public GraphViz(String runPath,String dotPath) {
+    public GraphViz(String resultPath,String runPath,String dotPath) {
         this.runPath=runPath;
         this.dotPath=dotPath;
+        this.resultGif=resultPath;
+
     }
 
     public void add(String line) {

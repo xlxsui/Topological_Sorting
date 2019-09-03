@@ -7,7 +7,10 @@
     <script type="text/javascript">
     function draw(){
         //var text = $("#graph-input").val();
-        var text = [["程序设计基础","数据结构"],["数据结构","离散数学"],["离散数学","程序设计基础"]]
+        var text = new Array;
+        for(int i=0;i < <%=MainController.N%>;i++){
+            text.push( <%=MainController.relationships[i].front%> + "," +  <%=MainController.relationships[i].rear%>);
+        //var text = [["程序设计基础","数据结构"],["数据结构","离散数学"],["离散数学","程序设计基础"]]
         var data = eval(text);
         var graph = data2Graph(data);
         drawGraph(graph);

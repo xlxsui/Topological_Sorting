@@ -10,11 +10,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import java.lang.String;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+
+class theResult{
+    String front;
+    String rear;
+};
 
 public class MainController {
     @FXML
@@ -22,12 +28,16 @@ public class MainController {
     @FXML
     Button showButton;
 
+    static int N;
+    static theResult[] relationships = new theResult[N];
 
     private String[] results;
     private Object FileWriteUtil;
 
     private Stage thisStage;//当前controller的Stage
 
+    Stage closeshowStage;
+    Stage closesearchStage;
 
     public void onConfirmBtnClicked() throws Exception {
         String way = comboBox.getValue().toString();
@@ -76,14 +86,12 @@ public class MainController {
 
     }
 
-
-    public void onShowBtnClicked() throws Exception {
+    public void closeShow() throws IOException {
         URL location = getClass().getResource("../fxml/show.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
         Parent showRoot = fxmlLoader.load();
-
 
         //新建一个Stage
         Stage showStage = new Stage();
@@ -92,20 +100,25 @@ public class MainController {
 
         showController.draw();
         showController.zoom();
-        //showController.drag();
-        //showController.initialize();
-
 
         //set Icon
         showStage.getIcons().add(new Image("res/Image/icon.png"));
         showStage.setTitle("拓扑排序应用系统");
         showStage.setScene(new Scene(showRoot, 1200, 900));
         showStage.show();
-        //showStage.close();
-        //showButton.fire();
-}
+        closeshowStage=showStage;
+    }
+    int showClickTime=0;
+    public <Alert> void onShowBtnClicked() throws Exception {
+        closeShow();
+        if(showClickTime==0){
+            closeshowStage.close();
+            showClickTime++;
 
-    public void onSearchBtnClicked() throws Exception {
+        }
+    }
+
+    public void closeSearch() throws IOException {
         //动态加载窗口fxml界面
         URL location = getClass().getResource("../fxml/search.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -127,6 +140,16 @@ public class MainController {
         searchStage.setTitle("拓扑排序应用系统");
         searchStage.setScene(new Scene(searchRoot, 1200, 900));
         searchStage.show();
+        closesearchStage=searchStage;
+    }
+    int searchClickTime=0;
+    public void onSearchBtnClicked() throws Exception {
+        closeSearch();
+        if(searchClickTime==0){
+            searchClickTime++;
+            closesearchStage.close();
+        }
+
     }
 
     public void onExportBtnClicked() throws IOException {//导出

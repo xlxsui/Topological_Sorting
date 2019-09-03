@@ -21,7 +21,6 @@ public class WelcomeController {
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
         Parent mainRoot = fxmlLoader.load();
 
-
         //新建一个Stage
         Stage mainStage = new Stage();
         //获取Controller的实例对象

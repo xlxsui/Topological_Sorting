@@ -16,10 +16,12 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import javafx.scene.control.ScrollPane;
 import javafx.beans.Observable;
 import javafx.event.EventHandler;
 import main.Main;
+
 public class ShowController {
 
     @FXML
@@ -27,10 +29,10 @@ public class ShowController {
     @FXML
     WebView webView;
     ImageView imageView = new ImageView();
-
+    theResult[] relationships = MainController.relationships;
     private Stage thisStage;//当前controller的Stage
 
-    GraphViz gViz = new GraphViz("D:\\", "D:\\Graphviz\\bin\\dot.exe");
+    GraphViz gViz = new GraphViz("showGif","D:\\", "D:\\Graphviz\\bin\\dot.exe");
 
     public void showResults(String[] results) {
 
@@ -40,12 +42,15 @@ public class ShowController {
 
     }
 
+
+
     public void showHTML() throws URISyntaxException, IOException {
-        String url = Main.class.getResource("/HTML/index.html").toExternalForm();
+        String url = Main.class.getResource("/main/controller/index.html").toExternalForm();
         Desktop.getDesktop().browse(URI.create(url));
     }
 
     public void draw() throws MalformedURLException {
+        int N=MainController.N;
         DoubleProperty zoomProperty = new SimpleDoubleProperty(200);
 
         zoomProperty.addListener(new InvalidationListener() {
@@ -66,8 +71,22 @@ public class ShowController {
             }
         });
 
+        //等待relationships变量，即可启用
         gViz.start_graph();
-        gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",shape=polygon,sides=5,peripheries=3,color=lightblue,style=filled];");
+        gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",sides=5,color=lightblue,style=filled];");
+        for(int i=0;i<N;i++){
+            gViz.addln(relationships[i].front + "->" + relationships[i].rear + ";");
+        }
+        gViz.end_graph();
+        try {
+            gViz.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*
+        gViz.start_graph();
+        gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",sides=5,color=lightblue,style=filled];");
         gViz.addln("\"数据结构\"->\"程序设计基础\";");
         gViz.addln("A->U;");
         gViz.addln("C->B;");
@@ -80,12 +99,13 @@ public class ShowController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
     }
 
     public void zoom() throws MalformedURLException {
 
         draw();
-        File file = new File("D:/dotGif.gif");
+        File file = new File("D:/showGif.gif");
         String localUrl = file.toURI().toURL().toString();
         Image image = new Image(localUrl);
 
