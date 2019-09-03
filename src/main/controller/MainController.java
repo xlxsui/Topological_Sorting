@@ -115,7 +115,7 @@ public class MainController {
             closeshowStage.close();
             showClickTime++;
 
-        }//
+        }
     }
 
     public void closeSearch() throws IOException {
