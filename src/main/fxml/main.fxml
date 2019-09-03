@@ -49,9 +49,9 @@
         <RowConstraints maxHeight="0.0" prefHeight="0.0"/>
         <RowConstraints maxHeight="0.0" prefHeight="0.0"/>
     </rowConstraints>
-    <Button mnemonicParsing="false" onMouseClicked="#onShowBtnClicked" prefHeight="23.0" prefWidth="81.0" text="显示关系图"
+    <Button fx:id="showButton" mnemonicParsing="false" onMouseClicked="#onShowBtnClicked" prefHeight="23.0" prefWidth="81.0" text="显示关系图"
             GridPane.columnIndex="3" GridPane.rowIndex="5"/>
-    <Button mnemonicParsing="false" onMouseClicked="#onExportBtnClicked" prefWidth="80.0" text="导出"
+    <Button  mnemonicParsing="false" onMouseClicked="#onExportBtnClicked" prefWidth="80.0" text="导出"
             GridPane.columnIndex="3" GridPane.rowIndex="7"/>
     <Button mnemonicParsing="false" onMouseClicked="#onExitBtnClicked" prefWidth="80.0" text="退出"
             GridPane.columnIndex="3" GridPane.rowIndex="10"/>

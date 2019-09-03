@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/2.2" fx:controller="main.controller.ImportController">
-    <children>
-        <Label layoutX="110.0" layoutY="86.0" prefHeight="18.0" prefWidth="65.0" text="文件地址："/>
-        <TextField layoutX="175.0" layoutY="84.0" prefHeight="20.0" prefWidth="216.0"/>
-        <Button layoutX="407.0" layoutY="83.0" mnemonicParsing="false" text="选择文件"
+             xmlns="http://javafx.com/javafx/2.2" fx:controller="main.controller.ImportController">
+    <Label layoutX="110.0" layoutY="86.0" prefHeight="18.0" prefWidth="65.0" text="文件地址："/>
+    <TextField fx:id="textfield" layoutX="175.0" layoutY="84.0" prefHeight="20.0" prefWidth="216.0" />
+    <Button layoutX="407.0" layoutY="83.0" mnemonicParsing="false" text="选择文件"
                 onMouseClicked="#onSelectBtnClicked"/>
-        <Button layoutX="175.0" layoutY="190.0" mnemonicParsing="false" text="确定"
+    <Button layoutX="175.0" layoutY="190.0" mnemonicParsing="false" text="确定"
                 onMouseClicked="#onConfirmBtnClicked"/>
-        <Button layoutX="332.0" layoutY="191.0" mnemonicParsing="false" text="返回" onMouseClicked="#onBackBtnClicked"/>
-    </children>
+    <Button layoutX="332.0" layoutY="191.0" mnemonicParsing="false" text="返回" onMouseClicked="#onBackBtnClicked"/>
 </AnchorPane>
