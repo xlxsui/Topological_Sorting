@@ -10,6 +10,6 @@
     <children>
         <Button mnemonicParsing="false" text="炫酷的效果" onMouseClicked="#showHTML"/>
         <ScrollPane fx:id="scrollPane" prefHeight="681.0" prefWidth="1200.0" VBox.vgrow="ALWAYS" />
-        <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+        <TextArea fx:id="showText" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

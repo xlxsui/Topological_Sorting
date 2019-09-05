@@ -10,11 +10,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.lang.String;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 class theResult{
@@ -30,6 +30,8 @@ public class MainController {
 
     static int N;
     static theResult[] relationships = new theResult[N];
+    static String graphContent;
+    static String[] elements = new String[1000];
 
     private String[] results;
     private Object FileWriteUtil;
@@ -100,6 +102,8 @@ public class MainController {
 
         showController.draw();
         showController.zoom();
+        //showController.showResults();
+
 
         //set Icon
         showStage.getIcons().add(new Image("res/Image/icon.png"));
@@ -108,14 +112,19 @@ public class MainController {
         showStage.show();
         closeshowStage=showStage;
     }
+
     int showClickTime=0;
     public <Alert> void onShowBtnClicked() throws Exception {
         closeShow();
         if(showClickTime==0){
             closeshowStage.close();
             showClickTime++;
-
         }
+        /*
+        else{
+            JOptionPane.showConfirmDialog(null, "图片已自动保存在D:/showGif.gif", "提示", JOptionPane.YES_NO_OPTION);
+        }
+        */
     }
 
     public void closeSearch() throws IOException {
@@ -134,6 +143,7 @@ public class MainController {
 
         searchController.draw();
         searchController.zoom();
+        searchController.showResults();
 
         //set Icon
         searchStage.getIcons().add(new Image("res/Image/icon.png"));
@@ -142,6 +152,7 @@ public class MainController {
         searchStage.show();
         closesearchStage=searchStage;
     }
+
     int searchClickTime=0;
     public void onSearchBtnClicked() throws Exception {
         closeSearch();
@@ -149,7 +160,11 @@ public class MainController {
             searchClickTime++;
             closesearchStage.close();
         }
-
+        /*
+        else{
+            JOptionPane.showConfirmDialog(null, "图片已自动保存在D:/searchGif.gif", "提示", JOptionPane.YES_NO_OPTION);
+            //Alert alert = new Alert(Alert.AlertType.ERROR, error, ButtonType.CLOSE);
+        }*/
     }
 
     public void onExportBtnClicked() throws IOException {//导出
