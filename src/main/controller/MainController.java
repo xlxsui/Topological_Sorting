@@ -112,7 +112,7 @@ public class MainController {
 
         showController.draw();
         showController.zoom();
-        //showController.showResults();
+        showController.showResults();
 
 
         //set Icon

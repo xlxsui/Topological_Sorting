@@ -93,6 +93,7 @@ public class ShowController {
     GraphViz gViz = new GraphViz("showGif","D:\\", "D:\\Graphviz\\bin\\dot.exe");
 
     public void showResults() {
+        System.out.println(numTopoResult);
         topologicalSorting();
         int[] topo = new int[n];
         String ok = "";
@@ -107,10 +108,9 @@ public class ShowController {
         showText.setText(ok);
     }
 
-    public void buildGraph(String graphContent) {  //传入的是名为graphContent的字符串
+    public void buildGraph(String graphContent) {  //传入的是名为graphContent的字符
         String[] lines = graphContent.split("\n");
-        numLines = lines.length;
-        for (int i = 0; i < lines.length; ++i) {
+        for (int i = 0; i < lines.length; i++) {
             String[] nodesInfo = lines[i].split(",");
             int startNodeLabel = Integer.parseInt(nodesInfo[1]);
             int endNodeLabel = Integer.parseInt(nodesInfo[2]);
@@ -147,7 +147,8 @@ public class ShowController {
 
         for(int i=0;i<n;i++){
             Vertex v = vertexs.get(i);
-            if(v.inDegree != 0 && visit[v.vertexLabel]==0){
+            if((v.inDegree == 0)&&(visit[v.vertexLabel]==0)){
+
                 for (int j=0;j<n;j++){
                     int flag=0;  //不在
                     for(int k=0;k<v.adjEdges.size();k++){
@@ -161,14 +162,15 @@ public class ShowController {
                         vertexs.get(j).inDegree--;
                         visit[v.vertexLabel]=1;
                         ans[cnt]=i;
-                        dfs(cnt+1);
+                        dfs(cnt++);
                     }
                 }
+
                 for(int k=0;k<n;k++){//回溯，恢复现场，将入度重新加一，并且将该顶点标记为未访问
                     int flag=0;  //不在
                     for(int o=0;o<v.adjEdges.size();o++){
                         int l = v.adjEdges.get(k).endVertex.vertexLabel;
-                        if(l == o){   //存在
+                        if(l == k){   //存在
                             flag = 1;
                             break;
                         }
@@ -178,11 +180,15 @@ public class ShowController {
                         visit[v.vertexLabel]=0;
                     }
                 }
+
             }
         }
     }
 
     public void topologicalSorting() {
+        for(int i=0;i<n;i++){
+            visit[i] = 0;
+        }
         buildGraph(graphContent);
         dfs(0);
     }
