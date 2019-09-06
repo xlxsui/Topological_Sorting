@@ -17,7 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 
-class theResult{
+class theResult {
     String front;
     String rear;
 };
@@ -28,10 +28,10 @@ public class MainController {
     @FXML
     Button showButton;
 
-    static int N;
-    static theResult[] relationships = new theResult[N];
-    static String graphContent;
-    static String[] elements = new String[1000];
+    static int N, elemCount;
+    static theResult[] relationships = new theResult[1000];
+    static String graphContent = "";
+    static String[] elements = new String[100];
 
     private String[] results;
     private Object FileWriteUtil;
@@ -40,6 +40,12 @@ public class MainController {
 
     Stage closeshowStage;
     Stage closesearchStage;
+
+    public void init() {
+        for (int i = 0; i < relationships.length; i++) {
+            relationships[i] = new theResult();
+        }
+    }
 
     public void onConfirmBtnClicked() throws Exception {
         String way = comboBox.getValue().toString();
@@ -77,13 +83,17 @@ public class MainController {
             Stage inputStage = new Stage();
             //获取Controller的实例对象
             InputController inputController = fxmlLoader.getController();
-            //InputController.setStage(inputStage);
+            inputController.setStage(inputStage);
+            inputController.init();
+
 
             //set Icon
             inputStage.getIcons().add(new Image("res/Image/icon.png"));
             inputStage.setTitle("拓扑排序应用系统");
             inputStage.setScene(new Scene(inputRoot, 600, 550));
             inputStage.show();
+
+            showData();
         }
 
     }
@@ -110,13 +120,14 @@ public class MainController {
         showStage.setTitle("拓扑排序应用系统");
         showStage.setScene(new Scene(showRoot, 1200, 900));
         showStage.show();
-        closeshowStage=showStage;
+        closeshowStage = showStage;
     }
 
-    int showClickTime=0;
+    int showClickTime = 0;
+
     public <Alert> void onShowBtnClicked() throws Exception {
         closeShow();
-        if(showClickTime==0){
+        if (showClickTime == 0) {
             closeshowStage.close();
             showClickTime++;
         }
@@ -150,13 +161,14 @@ public class MainController {
         searchStage.setTitle("拓扑排序应用系统");
         searchStage.setScene(new Scene(searchRoot, 1200, 900));
         searchStage.show();
-        closesearchStage=searchStage;
+        closesearchStage = searchStage;
     }
 
-    int searchClickTime=0;
+    int searchClickTime = 0;
+
     public void onSearchBtnClicked() throws Exception {
         closeSearch();
-        if(searchClickTime==0){
+        if (searchClickTime == 0) {
             searchClickTime++;
             closesearchStage.close();
         }
@@ -170,8 +182,8 @@ public class MainController {
     public void onExportBtnClicked() throws IOException {//导出
         results = topologicalSorting();//接下来把结果写到文件
 
-        boolean flag=true;//判断文件是否已存在，即文件名是否重复
-        String[] results = {"拓","扑","排","序","应","用","系","统"};//测试用，删
+        boolean flag = true;//判断文件是否已存在，即文件名是否重复
+        String[] results = {"拓", "扑", "排", "序", "应", "用", "系", "统"};//测试用，删
 
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
@@ -180,15 +192,14 @@ public class MainController {
 
         FileWriter writer = null;
         try {
-            if(file.exists()){//文件已存在，则删除覆盖文件
+            if (file.exists()) {//文件已存在，则删除覆盖文件
                 flag = false;
             }
             // 向目标文件中写入内容
             // FileWriter(File file, boolean append)，append为true时为追加模式，false或缺省则为覆盖模式
             writer = new FileWriter(file, flag);
-            for(int i=0;i<results.length;i++)
-            {
-                writer.append(results[i]+"\r\n");//写入String[] results
+            for (int i = 0; i < results.length; i++) {
+                writer.append(results[i] + "\r\n");//写入String[] results
             }
             writer.flush();
         } catch (IOException e) {
@@ -213,5 +224,19 @@ public class MainController {
     //生成Stage时生成该Stage的Controller，Controller调用该方法把Stage传过来
     public void setStage(Stage stage) {
         thisStage = stage;
+    }
+
+    //显示共享变量的内容
+    public void showData() {
+        System.out.println(N);
+        System.out.println(elemCount);
+        System.out.println(graphContent);
+        for (int i = 0; i < elemCount; i++) {
+            System.out.println(elements[i]);
+        }
+        for (int i = 0; i < N; i++) {
+            System.out.println(relationships[i].front +", "+ relationships[i].rear);
+        }
+
     }
 }

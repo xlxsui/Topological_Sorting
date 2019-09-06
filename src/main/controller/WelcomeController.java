@@ -26,6 +26,7 @@ public class WelcomeController {
         //获取Controller的实例对象
         MainController mainController = fxmlLoader.getController();
         mainController.setStage(mainStage);
+        mainController.init();
 
 
         //set Icon
