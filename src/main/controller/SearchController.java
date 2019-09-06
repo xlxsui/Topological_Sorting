@@ -26,14 +26,9 @@ public class SearchController {
     @FXML
     ScrollPane scrollPane;
     @FXML
-    TextField searchField;
-    @FXML
     TextArea resultArea;
 
     int N=MainController.N;
-
-    //记录搜索的字符串
-    String searching;
 
     //与搜索字符串相关的关系对的数量
     int numtr = 0; //记录和输入搜索课程相关的关系对的数量
@@ -43,8 +38,6 @@ public class SearchController {
     tr[] normal = new tr[N]; //normal用来存储正常的关系对
 
     String[] justOne = new String[N];  //JustOne用来存储没有先修关系的课程
-
-    int flag=0;   //记录用户是否已输入搜索课程
 
     int[] justOneIndex = new int[N];  //用来记录没有先修关系课程的序号
 
@@ -61,17 +54,12 @@ public class SearchController {
 
     private Stage thisStage;//当前controller的Stage
 
-    public void onSearchBtnClicked() {
-        searching = searchField.getText();
-        flag = 1;
-    }
-
     public void showResults() {
         String area = "";
         for(int i=0;i<numtr;i++){
             area += "<" + trip[i].front + "," + trip[i].rear + ">\n";
         }
-        resultArea.appendText(area);
+        resultArea.setText(area);
     }
 
     public void showHTML() throws URISyntaxException, IOException {
@@ -80,7 +68,6 @@ public class SearchController {
     }
 
     public void draw() throws MalformedURLException {
-        if(flag == 1) {
             tr[] untrip = new tr[N];  //trip用来储存无关用户搜索的关键字的关系对
 
             for (int i = 0; i < normal.length; i++)
@@ -88,6 +75,7 @@ public class SearchController {
 
             //将单个的课程存储下来，并且记录他们的序号
             int numJustOne = 0;
+            /*
             for (int i = 0; i < N; i++) {
                 if (relationships[i].front.equals("无")) {
                     justOne[numJustOne] = relationships[i].rear;
@@ -95,6 +83,7 @@ public class SearchController {
                     numJustOne++;
                 }
             }
+            */
 
             //将不是单个的放进normal数组
             int normalIndex = 0;
@@ -144,7 +133,7 @@ public class SearchController {
 
             //J搜索和用户输入的课程相关的关系放进trip
             for (int i = 0; i < normalIndex; i++) {
-                if (normal[i].front.equals(searching) || normal[i].rear.equals(searching)) {
+                if (normal[i].front.equals(MainController.searching) || normal[i].rear.equals(MainController.searching)) {
                     trip[numtr].front = normal[i].front;
                     trip[numtr].rear = normal[i].rear;
                     numtr += 1;
@@ -154,7 +143,7 @@ public class SearchController {
             int theOne = -1;  //单个序号
             //搜索和用户输入相关的单个课程
             for (int i = 0; i < numJustOne; i++) {
-                if (justOne[i].equals(searching)) {
+                if (justOne[i].equals(MainController.searching)) {
                     theOne = i;
                     break;
                 }
@@ -209,45 +198,38 @@ public class SearchController {
             //等待relationships变量，即可启用
             gViz.start_graph();
             gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",sides=5,color=lightblue,style=filled];");
-            gViz.addln(searching + "[color=red];");  //对该点标红
-            for (int j = 0; j < numUnRecord; j++) {  //对线条标红
-                gViz.addln(untrip[j].front + "->" + untrip[j].rear + "[color=red];");
+            for (int j = 0; j < numtr; j++) {  //对线条标红
+                if(trip[j].front.equals("无")){
+                    gViz.addln(trip[j].rear + ";");
+                }
+                else {
+                    gViz.addln(trip[j].front + "->" + trip[j].rear + "[color=red];");
+                }
             }
+            /*
             for (int j = 0; j < numJustOne; j++) {  //画单个点
                 gViz.addln(justOneuntrip[j] + ";");
             }
-            for (int j = 0; j < numRecord; j++) {  //再画剩下的关系对
-                gViz.addln(trip[j].front + "->" + trip[j].rear + ";");
+             */
+            for (int j = 0; j < numUnRecord; j++) {  //再画剩下的关系对
+                if(untrip[j].front.equals("无"))
+                    gViz.addln(untrip[j].rear + ";");
+                else
+                    gViz.addln(untrip[j].front + "->" + untrip[j].rear + ";");
             }
+            if (MainController.searching != "")
+                gViz.addln(MainController.searching + "[color=red];");  //对该点标红
             gViz.end_graph();
             try {
                 gViz.run();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+
     }
 
-        /*
-        gViz.start_graph();
-        gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",shape=polygon,sides=5,peripheries=3,color=lightblue,style=filled];");
-        gViz.addln("\"数据结构\"->\"程序设计基础\";");
-        gViz.addln("A->C;");
-        gViz.addln("A->C;");
-        gViz.addln("A->C;");
-        gViz.addln("C->B;");
-        gViz.addln("B->D;");
-        gViz.addln("C->E;");
-        gViz.end_graph();
-        try {
-            gViz.run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    */
     public void zoom() throws MalformedURLException {
-        if(flag == 1) {
+
             File file = new File("D:/searchGif.gif");
             String localUrl = file.toURI().toURL().toString();
             Image image = new Image(localUrl);
@@ -255,7 +237,7 @@ public class SearchController {
             imageView.setImage(image);
             imageView.preserveRatioProperty().set(true);
             scrollPane.setContent(imageView);
-        }
+
     }
 
     //生成Stage时生成该Stage的Controller，Controller调用该方法把Stage传过来

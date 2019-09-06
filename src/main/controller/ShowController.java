@@ -73,8 +73,6 @@ public class ShowController {
 
     int n=0; //记录顶点的个数
 
-    int numLines;//记录输入的关系对的数量
-
     String[] topoResults = new String[maxn];  //用来记录结果
 
     int numTopoResult = 0;  //用来记录结果数
@@ -93,7 +91,6 @@ public class ShowController {
     GraphViz gViz = new GraphViz("showGif","D:\\", "D:\\Graphviz\\bin\\dot.exe");
 
     public void showResults() {
-        System.out.println(numTopoResult);
         topologicalSorting();
         int[] topo = new int[n];
         String ok = "";
@@ -134,10 +131,6 @@ public class ShowController {
     }
 
     public void dfs(int cnt){
-        for(int i=0;i<maxn;i++){
-            topoResults[i] = new String();
-        }
-
         if(cnt==n){
             for(int i=0;i<n;i++){
                 topoResults[numTopoResult] += ans[i] + ",";
@@ -183,13 +176,18 @@ public class ShowController {
 
             }
         }
+        return;
     }
 
     public void topologicalSorting() {
         for(int i=0;i<n;i++){
             visit[i] = 0;
         }
+        for(int i=0;i<maxn;i++){
+            topoResults[i] = new String();
+        }
         buildGraph(graphContent);
+        System.out.println("11:"+graphContent);
         dfs(0);
     }
 

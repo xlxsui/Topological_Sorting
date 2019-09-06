@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,11 +29,14 @@ public class MainController {
     ComboBox comboBox;
     @FXML
     Button showButton;
+    @FXML
+    TextField searchText;
 
     static int N, elemCount;
     static theResult[] relationships = new theResult[1000];
     static String graphContent = "";
     static String[] elements = new String[100];
+    static String searching = "";
 
     private String[] results;
     private Object FileWriteUtil;
@@ -125,7 +130,7 @@ public class MainController {
 
     int showClickTime = 0;
 
-    public <Alert> void onShowBtnClicked() throws Exception {
+    public void onShowBtnClicked() throws Exception {
         closeShow();
         if (showClickTime == 0) {
             closeshowStage.close();
@@ -167,10 +172,23 @@ public class MainController {
     int searchClickTime = 0;
 
     public void onSearchBtnClicked() throws Exception {
-        closeSearch();
-        if (searchClickTime == 0) {
-            searchClickTime++;
-            closesearchStage.close();
+        searching = searchText.getText();
+        int isIn = 0;
+        for(int i=0;i<elemCount;i++){
+            if(searching.equals(elements[i])) {
+                isIn = 1;
+                break;
+            }
+        }
+        if(isIn == 0){
+            //警告窗口
+        }
+        else {
+            closeSearch();
+            if (searchClickTime == 0) {
+                searchClickTime++;
+                closesearchStage.close();
+            }
         }
         /*
         else{
