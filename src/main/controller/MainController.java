@@ -37,6 +37,7 @@ public class MainController {
     static String graphContent = "";
     static String[] elements = new String[100];
     static String searching = "";
+    String compare = "";  //用来监控前后两次的查找是否相同
 
     private String[] results;
     private Object FileWriteUtil;
@@ -172,7 +173,11 @@ public class MainController {
     int searchClickTime = 0;
 
     public void onSearchBtnClicked() throws Exception {
-        searching = searchText.getText();
+        compare = searchText.getText();
+        if(!compare.equals(searching)){
+            searchClickTime = 0;
+        }
+        searching = compare;
         int isIn = 0;
         for(int i=0;i<elemCount;i++){
             if(searching.equals(elements[i])) {

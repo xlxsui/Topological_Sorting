@@ -58,10 +58,10 @@ public class ShowController {
     private class Vertex {   //点
         private int vertexLabel;   //该点的序号
         private List<Edge> adjEdges;   //以该点为起点的边
-        private int inDegree;  //该点的入度
+        private int inDegree = 0;  //该点的入度
 
-        public Vertex(int verTtexLabel) {
-            this.vertexLabel = verTtexLabel;
+        public Vertex(int verTexLabel) {
+            this.vertexLabel = verTexLabel;
             this.inDegree = 0;
             this.adjEdges = new LinkedList();  //new了一个链表
         }
@@ -131,6 +131,7 @@ public class ShowController {
     }
 
     public void dfs(int cnt){
+
         if(cnt==n){
             for(int i=0;i<n;i++){
                 topoResults[numTopoResult] += ans[i] + ",";
@@ -143,6 +144,7 @@ public class ShowController {
             if((v.inDegree == 0)&&(visit[v.vertexLabel]==0)){
 
                 for (int j=0;j<n;j++){
+
                     int flag=0;  //不在
                     for(int k=0;k<v.adjEdges.size();k++){
                         int l = v.adjEdges.get(k).endVertex.vertexLabel;
@@ -154,15 +156,14 @@ public class ShowController {
                     if(flag == 1){
                         vertexs.get(j).inDegree--;
                         visit[v.vertexLabel]=1;
-                        ans[cnt]=i;
+                        ans[cnt]=v.vertexLabel;
                         dfs(cnt++);
                     }
                 }
-
                 for(int k=0;k<n;k++){//回溯，恢复现场，将入度重新加一，并且将该顶点标记为未访问
                     int flag=0;  //不在
                     for(int o=0;o<v.adjEdges.size();o++){
-                        int l = v.adjEdges.get(k).endVertex.vertexLabel;
+                        int l = v.adjEdges.get(o).endVertex.vertexLabel;
                         if(l == k){   //存在
                             flag = 1;
                             break;
@@ -173,7 +174,6 @@ public class ShowController {
                         visit[v.vertexLabel]=0;
                     }
                 }
-
             }
         }
         return;
@@ -186,8 +186,10 @@ public class ShowController {
         for(int i=0;i<maxn;i++){
             topoResults[i] = new String();
         }
+        for(int i=0;i<maxn;i++){
+            ans[i] = 0;
+        }
         buildGraph(graphContent);
-        System.out.println("11:"+graphContent);
         dfs(0);
     }
 
@@ -264,23 +266,6 @@ public class ShowController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /*
-        gViz.start_graph();
-        gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",sides=5,color=lightblue,style=filled];");
-        gViz.addln("\"数据结构\"->\"程序设计基础\";");
-        gViz.addln("A->U;");
-        gViz.addln("C->B;");
-        gViz.addln("B->D;");
-        gViz.addln("C->E;");
-        gViz.addln("C->L;");
-        gViz.end_graph();
-        try {
-            gViz.run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
     }
 
     public void zoom() throws MalformedURLException {
