@@ -297,6 +297,10 @@ public class InputController {
         }
     }
 
+    public void onBackBtnClicked() {
+        thisStage.close();
+    }
+
 
     /**
      * 显示错误信息
@@ -312,6 +316,7 @@ public class InputController {
         alert.show();
     }
     */
+
     /**
      * 从elements数组中获取string元素的序号
      *
@@ -428,6 +433,6 @@ public class InputController {
 
     //生成Stage时生成该Stage的Controller，Controller调用该方法把Stage传过来
     public void setStage(Stage stage) {
-        //thisStage = stage;
+        thisStage = stage;
     }
 }

@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.InputController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ededed;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.InputController">
     <children>
         <Label layoutX="270.0" layoutY="71.0" prefHeight="22.0" prefWidth="21.000099999997474" text="," textAlignment="CENTER" />
         <Label layoutX="140.0" layoutY="71.0" text="&lt;" />
         <Label layoutX="411.0" layoutY="71.0" text="&gt;" />
-        <TextField fx:id="textField1" layoutX="158.0" layoutY="68.0" prefWidth="112.0" />
-        <TextField fx:id="textField2" layoutX="281.0" layoutY="68.0" prefWidth="114.0" />
-        <Button layoutX="192.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#onClearBtnClicked" text="清空" />
-        <Button layoutX="259.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#onAddBtnClicked" text="添加" />
-        <TextArea fx:id="textArea" editable="false" layoutX="126.0" layoutY="141.0" prefHeight="230.0" prefWidth="310.0" wrapText="true">
-         <font>
-            <Font size="18.0" />
-         </font></TextArea>
-        <Button layoutX="494.0" layoutY="67.0" mnemonicParsing="false" onMouseClicked="#onLastBtnClicked" text="上一条关系" />
-        <Button layoutX="494.0" layoutY="93.0" mnemonicParsing="false" onMouseClicked="#onNextBtnClicked" text="下一条关系" />
-        <Button layoutX="494.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#onDeleteBtnClicked" text="删除该关系" />
-        <Button layoutX="323.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#onModifyBtnClicked" text="修改" />
-        <Button layoutX="512.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#onExportBtnClicked" text="导出" />
+        <JFXTextField fx:id="textField1" focusColor="#07c160" layoutX="158.0" layoutY="68.0" prefWidth="112.0" />
+        <JFXTextField fx:id="textField2" focusColor="#07c160" layoutX="281.0" layoutY="68.0" prefWidth="114.0" />
+        <JFXButton layoutX="192.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#onClearBtnClicked" style="-fx-background-color: #07c160;" text="清空" textFill="WHITE" />
+        <JFXButton layoutX="259.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#onAddBtnClicked" style="-fx-background-color: #07c160;" text="添加" textFill="WHITE" />
+        <JFXTextArea fx:id="textArea" editable="false" focusColor="#07c160" layoutX="126.0" layoutY="141.0" prefHeight="230.0" prefWidth="310.0" style="-fx-background-color: #07c16040;" wrapText="true">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </JFXTextArea>
+        <JFXButton layoutX="494.0" layoutY="67.0" mnemonicParsing="false" onMouseClicked="#onLastBtnClicked" style="-fx-background-color: #07c160;" text="上一条关系" textFill="WHITE" />
+        <JFXButton layoutX="494.0" layoutY="93.0" mnemonicParsing="false" onMouseClicked="#onNextBtnClicked" style="-fx-background-color: #07c160;" text="下一条关系" textFill="WHITE" />
+        <JFXButton layoutX="494.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#onDeleteBtnClicked" style="-fx-background-color: #07c160;" text="删除该关系" textFill="WHITE" />
+        <JFXButton layoutX="323.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#onModifyBtnClicked" style="-fx-background-color: #07c160;" text="修改" textFill="WHITE" />
+        <JFXButton layoutX="512.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#onExportBtnClicked" style="-fx-background-color: #07c160;" text="导出" textFill="WHITE" />
+        <JFXButton layoutX="505.0" layoutY="341.0" mnemonicParsing="false" onMouseClicked="#onBackBtnClicked" style="-fx-background-color: #07c160;" text="返回" textFill="WHITE" />
     </children>
 </AnchorPane>
