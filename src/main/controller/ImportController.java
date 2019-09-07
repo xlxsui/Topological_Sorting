@@ -150,6 +150,12 @@ public class ImportController {
         MainController.N = relationCount;
         MainController.elemCount = elemCount;
 
+        String s = null;
+        for(int i = 0; i < relationCount; i++){
+            s += (i+",")+results[i];
+        }
+        MainController.graphContent = s;
+
         for (int i = 0; i < elemCount; i++) {
             MainController.elements[i] = courses[i];
         }
