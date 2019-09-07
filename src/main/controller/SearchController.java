@@ -206,11 +206,7 @@ public class SearchController {
                     gViz.addln(trip[j].front + "->" + trip[j].rear + "[color=red];");
                 }
             }
-            /*
-            for (int j = 0; j < numJustOne; j++) {  //画单个点
-                gViz.addln(justOneuntrip[j] + ";");
-            }
-             */
+
             for (int j = 0; j < numUnRecord; j++) {  //再画剩下的关系对
                 if(untrip[j].front.equals("无"))
                     gViz.addln(untrip[j].rear + ";");

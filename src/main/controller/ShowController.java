@@ -25,12 +25,11 @@ import javafx.event.EventHandler;
 import main.Main;
 
 public class ShowController {
+    public String Str;
     @FXML
     ScrollPane scrollPane;
     @FXML
     TextArea showText;
-
-    static String Str;
 
     ImageView imageView = new ImageView();
 
@@ -52,36 +51,35 @@ public class ShowController {
     private class Edge {  //边
         private Vertex endVertex;
 
-        public Edge(ShowController.Vertex endVertex) {
+        public Edge(Vertex endVertex) {
             this.endVertex = endVertex;
         }
     }
 
     private class Vertex {   //点
-        private int vertexLabel;   //该点的序号
+        private int vertexLabel = 0;   //该点的序号
         private List<Edge> adjEdges;   //以该点为起点的边
-        private int inDegree;  //该点的入度
+        private int inDegree = 0;  //该点的入度
 
-        public Vertex(int verTtexLabel) {
-            this.vertexLabel = verTtexLabel;
+        public Vertex(int verTexLabel) {
+            this.vertexLabel = verTexLabel;
             this.inDegree = 0;
-            this.adjEdges = new LinkedList();  //new了一个链表
+            this.adjEdges = new LinkedList<>();  //new了一个链表
         }
     }
 
     ArrayList<Vertex> vertexs = new ArrayList();
 
+    ArrayList<Integer> verIndex = new ArrayList();
+
     String graphContent = MainController.graphContent;
 
-    int n=0; //记录顶点的个数
-
-    int numLines;//记录输入的关系对的数量
+    int n=-1; //记录顶点的个数
 
     String[] topoResults = new String[maxn];  //用来记录结果
 
     int numTopoResult = 0;  //用来记录结果数
 
-    Boolean [] vis = new Boolean[maxn];//是否访问
     int[] ans = new int[maxn];  //答案字符串
 
     int[] visit = new int[100];
@@ -94,101 +92,104 @@ public class ShowController {
 
     GraphViz gViz = new GraphViz("showGif","D:\\", "D:\\Graphviz\\bin\\dot.exe");
 
-    private String getShowText(TextArea showText){
-        return showText.getText();
-    }
-
     public void showResults() {
         topologicalSorting();
         int[] topo = new int[n];
         String ok = "";
         for(int i=0;i<numTopoResult;i++){
-            String showText = "";
+            String showText = "第"+(i+1)+"种：\n";
             String[] elem = topoResults[i].split(",");
             for(int j=0;j<n;j++)topo[j]= Integer.parseInt(elem[j]);
             for(int j=0;j<n-1;j++)showText += elements[topo[j]] + "->";
             showText += elements[topo[n-1]] + "\n";
             ok += showText;
         }
+        Str = ok;
         showText.setText(ok);
     }
 
-    public void buildGraph(String graphContent) {  //传入的是名为graphContent的字符串
+    public void buildGraph(String graphContent) {  //传入的是名为graphContent的字符
+        Vertex o = new Vertex(0);
+        vertexs.add(o);
+        verIndex.add(0);
+        n++;
         String[] lines = graphContent.split("\n");
-        numLines = lines.length;
-        for (int i = 0; i < lines.length; ++i) {
+        for (int i = 0; i < lines.length; i++) {
             String[] nodesInfo = lines[i].split(",");
             int startNodeLabel = Integer.parseInt(nodesInfo[1]);
             int endNodeLabel = Integer.parseInt(nodesInfo[2]);
             Vertex startNode = new Vertex(startNodeLabel);
             Vertex endNode = new Vertex(endNodeLabel);
 
-            Edge e = new Edge(endNode);
-            startNode.adjEdges.add(e);
-            if (startNodeLabel != 0) {   //记录下没有先修的课程序号
+            if (startNodeLabel != 0) {
                 endNode.inDegree++;  //对有先修关系的点的入度+1
             }
-            if (!vertexs.contains(startNode)) {   //al是所有的顶点的集合
+
+            if(!verIndex.contains(startNodeLabel)){
+                verIndex.add(startNodeLabel);
                 vertexs.add(startNode);
                 n++;
             }
-            if (!vertexs.contains(endNode)) {   //al是所有的顶点的集合
+            if (!verIndex.contains(endNodeLabel)) {   //al是所有的顶点的集合
                 vertexs.add(endNode);
+                verIndex.add(endNodeLabel);
                 n++;
+            }
+            if(startNodeLabel != 0) {
+                Vertex v = vertexs.get(endNodeLabel);
+                Edge e = new Edge(v);
+                Vertex v1 = vertexs.get(startNodeLabel);
+                v1.adjEdges.add(e);
             }
         }
     }
 
     public void dfs(int cnt){
-        for(int i=0;i<maxn;i++){
-            topoResults[i] = new String();
-        }
+        ArrayList<Vertex> vertexsback = new ArrayList();
 
-        if(cnt==n){
-            for(int i=0;i<n;i++){
+        if(cnt==n){                                           //如果结果成立则将结果赋值
+            for(int i=0;i<n;i++){                             //将排序结果循环加入
                 topoResults[numTopoResult] += ans[i] + ",";
             }
             numTopoResult++;
         }
 
-        for(int i=0;i<n;i++){
-            Vertex v = vertexs.get(i);
-            if(v.inDegree != 0 && visit[v.vertexLabel]==0){
-                for (int j=0;j<n;j++){
-                    int flag=0;  //不在
-                    for(int k=0;k<v.adjEdges.size();k++){
-                        int l = v.adjEdges.get(k).endVertex.vertexLabel;
-                        if(l == j){   //存在
-                            flag = 1;
-                            break;
-                        }
-                    }
-                    if(flag == 1){
-                        vertexs.get(j).inDegree--;
-                        visit[v.vertexLabel]=1;
-                        ans[cnt]=i;
-                        dfs(cnt+1);
-                    }
+        for(int i=1;i<=n;i++){
+            Vertex v = vertexs.get(i);//循环取出点
+            if((v.inDegree == 0)&&(visit[v.vertexLabel]==0)){//如果点的入度为零并且点没有被访问过
+
+                for(int k=0;k<v.adjEdges.size();k++) {
+                    v.adjEdges.get(k).endVertex.inDegree--;
+                    vertexsback.add(v.adjEdges.get(k).endVertex);
                 }
-                for(int k=0;k<n;k++){//回溯，恢复现场，将入度重新加一，并且将该顶点标记为未访问
-                    int flag=0;  //不在
-                    for(int o=0;o<v.adjEdges.size();o++){
-                        int l = v.adjEdges.get(k).endVertex.vertexLabel;
-                        if(l == o){   //存在
-                            flag = 1;
-                            break;
-                        }
-                    }
-                    if(flag == 1){
-                        vertexs.get(k).inDegree++;
-                        visit[v.vertexLabel]=0;
-                    }
+
+                v.adjEdges.clear();//清空所有邻接点
+                visit[v.vertexLabel]=1;
+                ans[cnt]=v.vertexLabel;
+                dfs(cnt+1);
+
+                for(int k=0;k<vertexsback.size();k++) {
+                    Vertex v1 = vertexsback.get(k);
+                    v1.inDegree++;
+                    Edge e = new Edge(v1);
+                    v.adjEdges.add(e);
                 }
+                visit[i] = 0;
             }
         }
+        return;
     }
 
     public void topologicalSorting() {
+        for(int i=0;i<n;i++){
+            visit[i] = 0;
+        }
+        for(int i=0;i<maxn;i++){
+            topoResults[i] = new String();
+        }
+        for(int i=0;i<maxn;i++){
+            ans[i] = 0;
+        }
         buildGraph(graphContent);
         dfs(0);
     }
@@ -266,25 +267,6 @@ public class ShowController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        showText.setText("哇哇哇哇再不行砸电脑哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡");
-        Str = getShowText(showText);
-        System.out.println("此时TextArea中的内容为："+Str);
-        /*
-        gViz.start_graph();
-        gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",sides=5,color=lightblue,style=filled];");
-        gViz.addln("\"数据结构\"->\"程序设计基础\";");
-        gViz.addln("A->U;");
-        gViz.addln("C->B;");
-        gViz.addln("B->D;");
-        gViz.addln("C->E;");
-        gViz.addln("C->L;");
-        gViz.end_graph();
-        try {
-            gViz.run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
     }
 
     public void zoom() throws MalformedURLException {
