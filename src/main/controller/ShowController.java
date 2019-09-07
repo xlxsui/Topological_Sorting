@@ -37,13 +37,13 @@ public class ShowController {
 
     private Stage thisStage;//当前controller的Stage
 
-    int maxn = 100;  //暂定最多100种可能
+    int maxn = 100000;
 
     int N=MainController.N;
 
     String[] elements = MainController.elements;
 
-    public class tr{   //
+    public class tr{
         String front;
         String rear;
     }
@@ -122,7 +122,12 @@ public class ShowController {
             Vertex endNode = new Vertex(endNodeLabel);
 
             if (startNodeLabel != 0) {
-                endNode.inDegree++;  //对有先修关系的点的入度+1
+                if (verIndex.contains(endNodeLabel)) {
+                    vertexs.get(endNodeLabel).inDegree++;
+                }
+                else {
+                    endNode.inDegree++;  //对有先修关系的点的入度+1
+                }
             }
 
             if(!verIndex.contains(startNodeLabel)){
@@ -135,6 +140,7 @@ public class ShowController {
                 verIndex.add(endNodeLabel);
                 n++;
             }
+
             if(startNodeLabel != 0) {
                 Vertex v = vertexs.get(endNodeLabel);
                 Edge e = new Edge(v);
@@ -181,7 +187,7 @@ public class ShowController {
     }
 
     public void topologicalSorting() {
-        for(int i=0;i<n;i++){
+        for(int i=0;i<=n;i++){
             visit[i] = 0;
         }
         for(int i=0;i<maxn;i++){
