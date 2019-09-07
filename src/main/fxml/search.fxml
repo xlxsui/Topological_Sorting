@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?language javascript?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.SearchController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.SearchController">
     <children>
         <AnchorPane prefHeight="51.0" prefWidth="1200.0">
             <children>
-                <Button layoutX="27.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#showHTML" text="炫酷的效果" />
+                <JFXButton layoutX="27.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#showHTML" style="-fx-background-color: #07c160;" text="炫酷的效果" textFill="WHITE" />
             </children>
         </AnchorPane>
         <ScrollPane fx:id="scrollPane" prefHeight="725.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
@@ -17,6 +19,6 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
             </content>
         </ScrollPane>
-        <TextArea fx:id="resultArea" editable="false" prefHeight="126.0" prefWidth="1200.0" VBox.vgrow="ALWAYS" />
+        <JFXTextArea fx:id="resultArea" editable="false" focusColor="#07c160" prefHeight="126.0" prefWidth="1200.0" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

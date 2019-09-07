@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?language javascript?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<VBox fx:controller="main.controller.ShowController" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0"
-      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.ShowController">
     <children>
-        <Button mnemonicParsing="false" text="炫酷的效果" onMouseClicked="#showHTML"/>
+        <JFXButton mnemonicParsing="false" onMouseClicked="#showHTML" style="-fx-background-color: #07c160;" text="炫酷的效果" textFill="WHITE" />
         <ScrollPane fx:id="scrollPane" prefHeight="681.0" prefWidth="1200.0" VBox.vgrow="ALWAYS" />
-        <TextArea fx:id="showText" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+        <JFXTextArea fx:id="showText" editable="false" focusColor="#07c160" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

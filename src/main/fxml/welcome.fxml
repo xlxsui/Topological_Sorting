@@ -5,12 +5,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<?import com.jfoenix.controls.JFXButton?>
+<AnchorPane style="-fx-background-color: #ededed;" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.WelcomeController">
     <children>
-        <Button layoutX="278.0" layoutY="261.0" mnemonicParsing="false" text="进入" textAlignment="CENTER"
-                onMouseClicked="#onWelcomeBtnClicked"/>
+        <JFXButton layoutX="278.0" layoutY="261.0" mnemonicParsing="false" text="进入" textAlignment="CENTER"
+                   onMouseClicked="#onWelcomeBtnClicked" textFill="WHITE"
+                   style="-fx-background-color: #07c160;"/>
         <Label layoutX="154.0" layoutY="31.0" text="欢迎使用拓扑排序应用系统" textAlignment="CENTER" textFill="#17191e">
             <font>
                 <Font size="24.0"/>

@@ -1,5 +1,6 @@
 package main.controller;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -23,16 +24,19 @@ class theResult {
 };
 
 public class MainController {
-    public static String searching;
+    public static String searching = "";
     @FXML
     ComboBox comboBox;
     @FXML
     Button showButton;
+    @FXML
+    JFXTextField searchText;
 
     static int N, elemCount;
     static theResult[] relationships = new theResult[1000];
     static String graphContent = "";
     static String[] elements = new String[100];
+    String compare = "";  //用来监控前后两次的查找是否相同
 
     private String results;
     private Object FileWriteUtil;
@@ -113,7 +117,7 @@ public class MainController {
 
         showController.draw();
         showController.zoom();
-        //showController.showResults();
+        showController.showResults();
 
 
         //set Icon
@@ -126,17 +130,13 @@ public class MainController {
 
     int showClickTime = 0;
 
-    public <Alert> void onShowBtnClicked() throws Exception {
+    public void onShowBtnClicked() throws Exception {
         closeShow();
         if (showClickTime == 0) {
             closeshowStage.close();
             showClickTime++;
         }
-        /*
-        else{
-            JOptionPane.showConfirmDialog(null, "图片已自动保存在D:/showGif.gif", "提示", JOptionPane.YES_NO_OPTION);
-        }
-        */
+
     }
 
     public void closeSearch() throws IOException {
@@ -168,19 +168,31 @@ public class MainController {
     int searchClickTime = 0;
 
     public void onSearchBtnClicked() throws Exception {
-        closeSearch();
-        if (searchClickTime == 0) {
-            searchClickTime++;
-            closesearchStage.close();
+        compare = searchText.getText();
+        if(!compare.equals(searching)){
+            searchClickTime = 0;
         }
-        /*
-        else{
-            JOptionPane.showConfirmDialog(null, "图片已自动保存在D:/searchGif.gif", "提示", JOptionPane.YES_NO_OPTION);
-            //Alert alert = new Alert(Alert.AlertType.ERROR, error, ButtonType.CLOSE);
-        }*/
+        searching = compare;
+        int isIn = 0;
+        for(int i=0;i<elemCount;i++){
+            if(searching.equals(elements[i])) {
+                isIn = 1;
+                break;
+            }
+        }
+        if(isIn == 0){
+            //警告窗口
+        }
+        else {
+            closeSearch();
+            if (searchClickTime == 0) {
+                closesearchStage.close();
+                searchClickTime++;
+            }
+        }
     }
 
-    public void onExportBtnClicked() throws IOException {//导出
+    public void onExportBtnClicked() throws IOException{//导出
         ShowController showController = new ShowController();
         results = showController.Str;//接下来把结果写到文件
 

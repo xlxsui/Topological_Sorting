@@ -8,7 +8,7 @@
     function draw(){
         //var text = $("#graph-input").val();
         var text = new Array;
-        for(int i=0;i < <%=MainController.N%>;i++){
+        for(int i=0;i < <%=MainController.N%>;i++)
             text.push( <%=MainController.relationships[i].front%> + "," +  <%=MainController.relationships[i].rear%>);
         //var text = [["程序设计基础","数据结构"],["数据结构","离散数学"],["离散数学","程序设计基础"]]
         var data = eval(text);

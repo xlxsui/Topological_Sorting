@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
-             xmlns="http://javafx.com/javafx/2.2" fx:controller="main.controller.ImportController">
-    <Label layoutX="110.0" layoutY="86.0" prefHeight="18.0" prefWidth="65.0" text="文件地址："/>
-    <TextField fx:id="textfield" layoutX="175.0" layoutY="84.0" prefHeight="20.0" prefWidth="216.0" />
-    <Button layoutX="407.0" layoutY="83.0" mnemonicParsing="false" text="选择文件"
-                onMouseClicked="#onSelectBtnClicked"/>
-    <Button layoutX="175.0" layoutY="190.0" mnemonicParsing="false" text="确定"
-                onMouseClicked="#onConfirmBtnClicked"/>
-    <Button layoutX="332.0" layoutY="191.0" mnemonicParsing="false" text="返回" onMouseClicked="#onBackBtnClicked"/>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.ImportController">
+    <Label layoutX="110.0" layoutY="86.0" prefHeight="18.0" prefWidth="65.0" text="文件地址：" />
+    <JFXTextField fx:id="textfield" focusColor="#07c160" layoutX="175.0" layoutY="84.0" prefHeight="20.0" prefWidth="216.0" />
+    <JFXButton layoutX="407.0" layoutY="83.0" mnemonicParsing="false" onMouseClicked="#onSelectBtnClicked" style="-fx-background-color: #07c160;" text="选择文件" textFill="WHITE" />
+    <JFXButton layoutX="175.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#onConfirmBtnClicked" style="-fx-background-color: #07c160;" text="确定" textFill="WHITE" />
+    <JFXButton layoutX="332.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#onBackBtnClicked" style="-fx-background-color: #07c160;" text="返回" textFill="WHITE" />
 </AnchorPane>
