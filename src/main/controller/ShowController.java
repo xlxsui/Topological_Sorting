@@ -30,6 +30,8 @@ public class ShowController {
     @FXML
     TextArea showText;
 
+    static String Str;
+
     ImageView imageView = new ImageView();
 
     theResult[] relationships = MainController.relationships;
@@ -91,6 +93,10 @@ public class ShowController {
     int[] justOneIndex = new int[N];  //用来记录没有先修关系课程的序号
 
     GraphViz gViz = new GraphViz("showGif","D:\\", "D:\\Graphviz\\bin\\dot.exe");
+
+    private String getShowText(TextArea showText){
+        return showText.getText();
+    }
 
     public void showResults() {
         topologicalSorting();
@@ -260,7 +266,9 @@ public class ShowController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        showText.setText("哇哇哇哇再不行砸电脑哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇哇嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡");
+        Str = getShowText(showText);
+        System.out.println("此时TextArea中的内容为："+Str);
         /*
         gViz.start_graph();
         gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",sides=5,color=lightblue,style=filled];");
