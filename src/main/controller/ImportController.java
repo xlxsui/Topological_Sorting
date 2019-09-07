@@ -18,7 +18,8 @@ public class ImportController {
     private String[] results = new String[100];//最终传出的数据
     @FXML
     private TextField textfield;
-    String path;
+    private String path;
+    int relationCount,elemCount;
 
     public void onSelectBtnClicked() {
         FileChooser fileChooser = new FileChooser();
@@ -119,7 +120,9 @@ public class ImportController {
         }
 
         System.out.println("课程数："+j);
+        elemCount = j;
         System.out.println("关系数："+i);
+        relationCount = i;
 
         int lineNum = i, courseNum = j;
         i--;
@@ -139,6 +142,21 @@ public class ImportController {
             String s= i+"";
             results[i]= s+","+resultsI[i].front + "，" + resultsI[i].rear;
             System.out.println("results["+i+"]:"+results[i]);
+        }
+        syncData();
+    }
+
+    public void syncData() {
+        MainController.N = relationCount;
+        MainController.elemCount = elemCount;
+
+        for (int i = 0; i < elemCount; i++) {
+            MainController.elements[i] = courses[i];
+        }
+
+        for (int i = 0; i < relationCount; i++) {
+            MainController.relationships[i].front = resultsC[i].front;
+            MainController.relationships[i].rear = resultsC[i].rear;
         }
     }
 
