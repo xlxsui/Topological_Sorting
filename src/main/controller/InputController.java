@@ -1,8 +1,6 @@
 package main.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
@@ -305,6 +303,7 @@ public class InputController {
      *
      * @param error
      */
+    /*
     public void showErrorAlert(String error) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR, error, ButtonType.CLOSE);
@@ -312,7 +311,7 @@ public class InputController {
         alert.setTitle("出错误了哟");
         alert.show();
     }
-
+    */
     /**
      * 从elements数组中获取string元素的序号
      *
@@ -345,6 +344,7 @@ public class InputController {
                     .append(relations[i].getFront()).append(",").append(relations[i].getRear()).append("\n");
         }
         return text.toString();
+
     }
 
     public void showContent() {
@@ -359,6 +359,7 @@ public class InputController {
         for (int i = 0; i < relationCount; i++) {
             System.out.println(relationships[i].toString());
         }
+
     }
 
     public void syncData() {
@@ -381,7 +382,7 @@ public class InputController {
 
     public boolean isTextOk() {
         if (textField2.getText().equals("") || textField2.getText().equals(textField1.getText())) {
-            showErrorAlert("请确认输入内容是否正确");
+            //showErrorAlert("请确认输入内容是否正确");
             return false;
         } else {
             return true;
@@ -408,7 +409,7 @@ public class InputController {
             for (int i = 0; i < relationCount; i++) {
                 if (relationships[i].getFront().equals("无")
                         && textField2.getText().equals(relationships[i].getRear())) {
-                    showErrorAlert("关系已存在");
+                    //showErrorAlert("关系已存在");
                     return true;
                 }
             }
@@ -416,7 +417,7 @@ public class InputController {
             for (int i = 0; i < relationCount; i++) {
                 if (textField1.getText().equals(relationships[i].getFront())
                         && textField2.getText().equals(relationships[i].getRear())) {
-                    showErrorAlert("关系已存在");
+                    //showErrorAlert("关系已存在");
                     return true;
                 }
             }

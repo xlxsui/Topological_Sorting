@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?language javascript?>
+<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<VBox fx:controller="main.controller.SearchController" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0"
-      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.SearchController">
     <children>
         <AnchorPane prefHeight="51.0" prefWidth="1200.0">
             <children>
-                <TextField fx:id="searchField" layoutX="414.0" layoutY="8.0" prefHeight="36.0" prefWidth="341.0" text="输入搜索课程名称" />
-                <Button  layoutX="790.0" layoutY="8.0" mnemonicParsing="false" prefHeight="36.0"
-                        onMouseClicked="#onSearchBtnClicked" prefWidth="76.0" text="搜索" />
-                <Button layoutX="27.0" layoutY="8.0" mnemonicParsing="false" text="炫酷的效果" onMouseClicked="#showHTML"/>
+                <Button layoutX="27.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#showHTML" text="炫酷的效果" />
             </children>
         </AnchorPane>
         <ScrollPane fx:id="scrollPane" prefHeight="725.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
