@@ -37,7 +37,7 @@ public class ShowController {
 
     private Stage thisStage;//当前controller的Stage
 
-    int maxn = 100000;
+    int maxn = 10000;   //最多给输出1万种可能
 
     int N=MainController.N;
 
@@ -152,7 +152,9 @@ public class ShowController {
 
     public void dfs(int cnt){
         ArrayList<Vertex> vertexsback = new ArrayList();
-
+        if(numTopoResult >= 10000){
+            return;
+        }
         if(cnt==n){                                           //如果结果成立则将结果赋值
             for(int i=0;i<n;i++){                             //将排序结果循环加入
                 topoResults[numTopoResult] += ans[i] + ",";
