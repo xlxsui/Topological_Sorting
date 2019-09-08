@@ -1,10 +1,10 @@
 package main.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonType;
+//import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+//import javafx.scene.control.Alert;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -466,10 +466,11 @@ public class InputController {
     }
 
     public void showErrorAlert(String warning) {
+        /*
         Alert alert = new Alert(Alert.AlertType.ERROR, warning, ButtonType.CLOSE);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.setTitle("出错误了哟");
-        alert.show();
+        alert.show();*/
     }
 
     //生成Stage时生成该Stage的Controller，Controller调用该方法把Stage传过来

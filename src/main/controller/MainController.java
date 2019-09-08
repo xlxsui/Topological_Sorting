@@ -38,7 +38,7 @@ public class MainController {
     static String[] elements = new String[100];
     String compare = "";  //用来监控前后两次的查找是否相同
 
-    private String results;
+    private String results = "";
     private Object FileWriteUtil;
 
     private Stage thisStage;//当前controller的Stage

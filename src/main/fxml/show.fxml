@@ -8,7 +8,6 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.ShowController">
     <children>
-        <JFXButton mnemonicParsing="false" onMouseClicked="#showHTML" style="-fx-background-color: #07c160;" text="炫酷的效果" textFill="WHITE" />
         <ScrollPane fx:id="scrollPane" prefHeight="681.0" prefWidth="1200.0" VBox.vgrow="ALWAYS" />
         <JFXTextArea fx:id="showText" editable="false" focusColor="#07c160" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
     </children>
