@@ -1,8 +1,10 @@
 package main.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -147,8 +149,26 @@ public class InputController {
     }
 
     public void onClearBtnClicked() {
-        textField1.setText("");
-        textField2.setText("");
+        for (int i = 1; i < elemCount; i++) {  //保留“无”
+            elements[i].setName("");
+            elements[i].setNum(0);
+        }
+        for (int j = 0; j < relationCount; j++) {
+            relations[j].setNum(0);
+            relations[j].setFront(0);
+            relations[j].setRear(0);
+            relationships[j].setFront("");
+            relationships[j].setRear("");
+        }
+        elemCount = 1;
+        relationCount = 0;
+        index = 0;
+        syncData();
+        textField1.clear();
+        textField2.clear();
+        textArea.clear();
+        //textField1.setText("");
+        //textField2.setText("");
     }
 
     public void onAddBtnClicked() {
@@ -205,6 +225,9 @@ public class InputController {
         System.out.println("index：" + index + ", relationCount：" + relationCount);
         textArea.setText(makeShowText());
         syncData();//同步数据去MainController
+        textField1.clear();
+        textField2.clear();
+
     }
 
     public void onModifyBtnClicked() {
@@ -212,12 +235,20 @@ public class InputController {
             index--;
         }
 
-        if (index >= 0 && index < relationCount && !isRelationRepeat()) {
-            relations[index].setFront(getElemNum(elements, textField1.getText()));
-            relations[index].setRear(getElemNum(elements, textField2.getText()));
+        if (index >= 0 && index < relationCount && !isRelationRepeat() && isTextOk()) {
+            if (isOneInput()) {
+                relations[index].setFront(getElemNum(elements,"无"));
+                relations[index].setRear(getElemNum(elements, textField2.getText()));
 
-            relationships[index].setFront(textField1.getText());
-            relationships[index].setRear(textField2.getText());
+                relationships[index].setFront("无");
+                relationships[index].setRear(textField2.getText());
+            } else {
+                relations[index].setFront(getElemNum(elements, textField1.getText()));
+                relations[index].setRear(getElemNum(elements, textField2.getText()));
+
+                relationships[index].setFront(textField1.getText());
+                relationships[index].setRear(textField2.getText());
+            }
         }
 
         textArea.setText(makeShowText());
@@ -388,6 +419,7 @@ public class InputController {
     public boolean isTextOk() {
         if (textField2.getText().equals("") || textField2.getText().equals(textField1.getText())) {
             //showErrorAlert("请确认输入内容是否正确");
+            showErrorAlert("请确认输入内容是否正确!");
             return false;
         } else {
             return true;
@@ -415,6 +447,7 @@ public class InputController {
                 if (relationships[i].getFront().equals("无")
                         && textField2.getText().equals(relationships[i].getRear())) {
                     //showErrorAlert("关系已存在");
+                    showErrorAlert("关系已存在!");
                     return true;
                 }
             }
@@ -423,12 +456,20 @@ public class InputController {
                 if (textField1.getText().equals(relationships[i].getFront())
                         && textField2.getText().equals(relationships[i].getRear())) {
                     //showErrorAlert("关系已存在");
+                    showErrorAlert("关系已存在");
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    public void showErrorAlert(String warning) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, warning, ButtonType.CLOSE);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.setTitle("出错误了哟");
+        alert.show();
     }
 
     //生成Stage时生成该Stage的Controller，Controller调用该方法把Stage传过来
