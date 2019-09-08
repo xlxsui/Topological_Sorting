@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 import main.Main;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import java.awt.*;
 import java.io.File;
