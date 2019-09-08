@@ -25,7 +25,7 @@ import javafx.event.EventHandler;
 import main.Main;
 
 public class ShowController {
-    public String Str;
+    static String Str;
     @FXML
     ScrollPane scrollPane;
     @FXML
@@ -37,7 +37,7 @@ public class ShowController {
 
     private Stage thisStage;//当前controller的Stage
 
-    int maxn = 10000;   //最多给输出1万种可能
+    int maxn = 3000;   //最多给输出1万种可能
 
     int N=MainController.N;
 
@@ -101,7 +101,7 @@ public class ShowController {
             String[] elem = topoResults[i].split(",");
             for(int j=0;j<n;j++)topo[j]= Integer.parseInt(elem[j]);
             for(int j=0;j<n-1;j++)showText += elements[topo[j]] + "->";
-            showText += elements[topo[n-1]] + "\n";
+            showText += elements[topo[n-1]] + "\n\n";
             ok += showText;
         }
         Str = ok;
@@ -152,7 +152,7 @@ public class ShowController {
 
     public void dfs(int cnt){
         ArrayList<Vertex> vertexsback = new ArrayList();
-        if(numTopoResult >= 10000){
+        if(numTopoResult >= 3000){
             return;
         }
         if(cnt==n){                                           //如果结果成立则将结果赋值
