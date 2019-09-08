@@ -141,7 +141,7 @@ public class ImportController {
         }//彻底把resultsC[]转换成resultsI[]
         for(i=0; i<lineNum; i++){//把“0” “1”变成“0，1”，存在results里
             String s= i+"";
-            results[i]= s+"，"+resultsI[i].front + "，" + resultsI[i].rear;
+            results[i]= s+","+resultsI[i].front + "," + resultsI[i].rear;
             System.out.println("results["+i+"]:"+results[i]);
         }
         syncData();
