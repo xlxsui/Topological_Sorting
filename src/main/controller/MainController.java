@@ -1,5 +1,8 @@
 package main.controller;
 
+import com.jfoenix.controls.JFXAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.lang.String;
@@ -131,6 +136,10 @@ public class MainController {
     int showClickTime = 0;
 
     public void onShowBtnClicked() throws Exception {
+        if (N < 1) {
+            InputController.showErrorAlert(thisStage, "没有输入数据！");
+            return;
+        }
         closeShow();
         if (showClickTime == 0) {
             closeshowStage.close();
@@ -168,22 +177,26 @@ public class MainController {
     int searchClickTime = 0;
 
     public void onSearchBtnClicked() throws Exception {
+        if (N < 1) {
+            InputController.showErrorAlert(thisStage, "没有输入数据！");
+            return;
+        }
+
         compare = searchText.getText();
-        if(!compare.equals(searching)){
+        if (!compare.equals(searching)) {
             searchClickTime = 0;
         }
         searching = compare;
         int isIn = 0;
-        for(int i=0;i<elemCount;i++){
-            if(searching.equals(elements[i])) {
+        for (int i = 0; i < elemCount; i++) {
+            if (searching.equals(elements[i])) {
                 isIn = 1;
                 break;
             }
         }
-        if(isIn == 0){
+        if (isIn == 0) {
             //警告窗口
-        }
-        else {
+        } else {
             closeSearch();
             if (searchClickTime == 0) {
                 closesearchStage.close();
@@ -192,7 +205,12 @@ public class MainController {
         }
     }
 
-    public void onExportBtnClicked() throws IOException{//导出
+    public void onExportBtnClicked() throws IOException {//导出
+        if (N < 1) {
+            InputController.showErrorAlert(thisStage, "没有输入数据！");
+            return;
+        }
+
         ShowController showController = new ShowController();
         results = showController.Str;//接下来把结果写到文件
 
@@ -212,7 +230,7 @@ public class MainController {
             // 向目标文件中写入内容
             // FileWriter(File file, boolean append)，append为true时为追加模式，false或缺省则为覆盖模式
             writer = new FileWriter(file, flag);
-            writer.append(results );//写入String[] results
+            writer.append(results);//写入String[] results
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -225,7 +243,25 @@ public class MainController {
 
 
     public void onExitBtnClicked() {
-        System.exit(0);
+
+        JFXAlert alert = new JFXAlert(thisStage);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setOverlayClose(false);
+        JFXDialogLayout layout = new JFXDialogLayout();
+        layout.setHeading(new Label("提示"));
+        layout.setBody(new Label("确定退出吗？"));
+
+        JFXButton confirmButton = new JFXButton("确定");
+        confirmButton.getStylesheets().add("/res/CSS/main.css");
+        confirmButton.setOnAction(event -> System.exit(0));
+
+        JFXButton closeButton = new JFXButton("取消");
+        closeButton.getStylesheets().add("/res/CSS/main.css");
+        closeButton.setOnAction(event -> alert.hideWithAnimation());
+
+        layout.setActions(confirmButton, closeButton);
+        alert.setContent(layout);
+        alert.show();
     }
 
     public String[] topologicalSorting() {
@@ -247,7 +283,7 @@ public class MainController {
             System.out.println(elements[i]);
         }
         for (int i = 0; i < N; i++) {
-            System.out.println(relationships[i].front +", "+ relationships[i].rear);
+            System.out.println(relationships[i].front + ", " + relationships[i].rear);
         }
 
     }

@@ -1,11 +1,14 @@
 package main.controller;
 
+import com.jfoenix.controls.JFXAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.fxml.FXML;
 //import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 //import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -197,7 +200,7 @@ public class InputController {
 
             showContent();
             //接下来存到relations数组里面，也是两种情况
-            if (isOneInput() && !isRelationRepeat()) {
+            if (isOneInput() && !isRelationRepeat() && !isRelationOpposite()) {
 
                 relations[relationCount].setNum(relationCount);
                 relations[relationCount].setFront(getElemNum(elements, "无"));
@@ -206,7 +209,7 @@ public class InputController {
                 relationships[relationCount].setFront("无");
                 relationships[relationCount].setRear(textField2.getText());
                 relationCount++;
-            } else if (!isRelationRepeat()) {
+            } else if (!isRelationRepeat() && !isRelationOpposite()) {
                 relations[relationCount].setNum(relationCount);
                 relations[relationCount].setFront(getElemNum(elements, textField1.getText()));
                 relations[relationCount].setRear(getElemNum(elements, textField2.getText()));
@@ -234,9 +237,9 @@ public class InputController {
             index--;
         }
 
-        if (index >= 0 && index < relationCount && !isRelationRepeat() && isTextOk()) {
+        if (index >= 0 && index < relationCount && !isRelationRepeat() && !isRelationOpposite() && isTextOk()) {
             if (isOneInput()) {
-                relations[index].setFront(getElemNum(elements,"无"));
+                relations[index].setFront(getElemNum(elements, "无"));
                 relations[index].setRear(getElemNum(elements, textField2.getText()));
 
                 relationships[index].setFront("无");
@@ -261,6 +264,8 @@ public class InputController {
             index--;
             textField1.setText(relationships[index].getFront());
             textField2.setText(relationships[index].getRear());
+        } else if (index == 0) {
+            showErrorAlert(thisStage, "已经是第一个！");
         }
 
         System.out.println("index：" + index + ", relationCount：" + relationCount);
@@ -303,6 +308,11 @@ public class InputController {
 
     public void onExportBtnClicked() throws Exception {
 
+        if (relationCount < 1) {
+            showErrorAlert(thisStage, "输入数据为空！");
+            return;
+        }
+
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -330,22 +340,6 @@ public class InputController {
     public void onBackBtnClicked() {
         thisStage.close();
     }
-
-
-    /**
-     * 显示错误信息
-     *
-     * @param error
-     */
-    /*
-    public void showErrorAlert(String error) {
-
-        Alert alert = new Alert(Alert.AlertType.ERROR, error, ButtonType.CLOSE);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        alert.setTitle("出错误了哟");
-        alert.show();
-    }
-    */
 
     /**
      * 从elements数组中获取string元素的序号
@@ -418,7 +412,7 @@ public class InputController {
     public boolean isTextOk() {
         if (textField2.getText().equals("") || textField2.getText().equals(textField1.getText())) {
             //showErrorAlert("请确认输入内容是否正确");
-            showErrorAlert("请确认输入内容是否正确!");
+            showErrorAlert(thisStage, "请确认输入内容是否正确!");
             return false;
         } else {
             return true;
@@ -446,7 +440,7 @@ public class InputController {
                 if (relationships[i].getFront().equals("无")
                         && textField2.getText().equals(relationships[i].getRear())) {
                     //showErrorAlert("关系已存在");
-                    showErrorAlert("关系已存在!");
+                    showErrorAlert(thisStage, "关系已存在!");
                     return true;
                 }
             }
@@ -455,7 +449,7 @@ public class InputController {
                 if (textField1.getText().equals(relationships[i].getFront())
                         && textField2.getText().equals(relationships[i].getRear())) {
                     //showErrorAlert("关系已存在");
-                    showErrorAlert("关系已存在");
+                    showErrorAlert(thisStage, "关系已存在");
                     return true;
                 }
             }
@@ -464,12 +458,34 @@ public class InputController {
         return false;
     }
 
-    public void showErrorAlert(String warning) {
-        /*
-        Alert alert = new Alert(Alert.AlertType.ERROR, warning, ButtonType.CLOSE);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        alert.setTitle("出错误了哟");
-        alert.show();*/
+    public boolean isRelationOpposite() {
+        for (int i = 0; i < relationCount; i++) {
+            if (textField1.getText().equals(relationships[i].getRear())
+                    && textField2.getText().equals(relationships[i].getFront())) {
+                showErrorAlert(thisStage, "相反关系已存在");
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    public static void showErrorAlert(Stage stage, String warning) {
+        JFXAlert alert = new JFXAlert(stage);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setOverlayClose(false);
+        JFXDialogLayout layout = new JFXDialogLayout();
+        layout.setHeading(new Label("出错了哟"));
+        layout.setBody(new Label(warning));
+
+        JFXButton confirmButton = new JFXButton("确定");
+        confirmButton.getStylesheets().add("/res/CSS/main.css");
+        confirmButton.setOnAction(event -> alert.hideWithAnimation());
+
+        layout.setActions(confirmButton);
+        alert.setContent(layout);
+        alert.show();
     }
 
     //生成Stage时生成该Stage的Controller，Controller调用该方法把Stage传过来

@@ -1,8 +1,13 @@
 package main.controller;
 
+import com.jfoenix.controls.JFXAlert;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -19,7 +24,7 @@ public class ImportController {
     @FXML
     private TextField textfield;
     private String path;
-    int relationCount,elemCount;
+    int relationCount, elemCount;
 
     public void onSelectBtnClicked() {
         FileChooser fileChooser = new FileChooser();
@@ -29,54 +34,59 @@ public class ImportController {
 
         String path = file.getPath();//选择的文件地址
         textfield.setText(path);
-        System.out.println("你通过文件选择器打开了："+file);//运行框显示打开的文件地址以便检查
+        System.out.println("你通过文件选择器打开了：" + file);//运行框显示打开的文件地址以便检查
 
     }
 
     public static String aComaB(String msg) {//去掉尖括号
-        String list=new String();
+        String list = new String();
         Pattern p = Pattern.compile("<(.*?)>");
         Matcher m = p.matcher(msg);
-        while(m.find()){
-            list=(m.group(1));
+        while (m.find()) {
+            list = (m.group(1));
         }
         return list;
     }
 
     public String codeWay(String path) throws IOException {//获取当前txt文件的编码格式
-        BufferedInputStream bin =new BufferedInputStream(new FileInputStream(path));
-        int p =(bin.read()<<8)+bin.read();
+        BufferedInputStream bin = new BufferedInputStream(new FileInputStream(path));
+        int p = (bin.read() << 8) + bin.read();
 
-        String code =null;
+        String code = null;
 
-        switch(p){
+        switch (p) {
             case 0xefbb:
-                code ="UTF-8";
+                code = "UTF-8";
                 break;
             case 0xfffe:
-                code ="Unicode";
+                code = "Unicode";
                 break;
             case 0xfeff:
-                code ="UTF-16BE";
+                code = "UTF-16BE";
                 break;
             default:
-                code ="GBK";
+                code = "GBK";
         }
         return code;
     }
 
     public void onConfirmBtnClicked() throws IOException {
         path = textfield.getText();//获取textfield里的路径
-        System.out.println("按下“确认”后取到的路径（即此时TextField的文本）为："+path);//测试用
+        System.out.println("按下“确认”后取到的路径（即此时TextField的文本）为：" + path);//测试用
         File filename = new File(path); // 要读取path路径的input,txt文件
-        InputStreamReader reader = new InputStreamReader(new FileInputStream(filename),codeWay(path)); // 建立一个输入流对象reader
+        InputStreamReader reader = new InputStreamReader(new FileInputStream(filename), codeWay(path)); // 建立一个输入流对象reader
         BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言
         String line;
-        int i=0,j=0,k;
+        int i = 0, j = 0, k;
         while ((line = br.readLine()) != null) {
             // 一次读入一行数据line = br.readLine()
             //以下是和String[] resultsC 和String[] resultsI 有关的代码
             String[] string = aComaB(line).split(",");//"<a,b>"字符串变“a”和“b”
+
+            if (string.length < 2 || string.length > 2) {
+                InputController.showErrorAlert(thisStage, "文件格式错误！");
+                return;
+            }
             resultsC[i] = new theResults();//实例化theResults对象
 
             resultsC[i].front = string[0];//前面的字符串存到front
@@ -91,60 +101,79 @@ public class ImportController {
         //String s1 = "程序设计基础";
         //System.out.println( s1.equals(s));
 
-        courses[0]= resultsC[0].front;
-        System.out.println("0:"+courses[0] );//
-        for(k=0;k<i;k++){//此时j是courses的序号，从0开始
-            System.out.println("第"+k+"行" );
-            j=0;
-            int flag1=0,flag2=0;
-            while (courses[j]!=null) {
-                if(courses[j].equals(resultsC[k].front))//如果有相同的名字  标志值变1
-                    flag1=1;
-                else if(courses[j].equals(resultsC[k].rear))
-                        flag2=1;
-                j++;//最后的j是当前course数组所存有的课程总数
-            }
-            if(flag1==0&&flag2!=0)
-                courses[j]=resultsC[k].front;
-            else if(flag2==0&&flag1!=0)
-                courses[j] = resultsC[k].rear;
-            else if(flag1==0&&flag2==0){
-                courses[j]=resultsC[k].front;
-                courses[++j]=resultsC[k].rear;
-            }
-            else continue;
-
-            System.out.println(j+":"+courses[j] );
-            ++j;
-            if(courses[j]!=null)
-                System.out.println((j)+":"+courses[j] );
+        if (i < 1) {
+            InputController.showErrorAlert(thisStage, "文件内容为空！");
+            return;
         }
 
-        System.out.println("课程数："+j);
+        courses[0] = resultsC[0].front;
+        System.out.println("0:" + courses[0]);//
+        for (k = 0; k < i; k++) {//此时j是courses的序号，从0开始
+            System.out.println("第" + k + "行");
+            j = 0;
+            int flag1 = 0, flag2 = 0;
+            while (courses[j] != null) {
+                if (courses[j].equals(resultsC[k].front))//如果有相同的名字  标志值变1
+                    flag1 = 1;
+                else if (courses[j].equals(resultsC[k].rear))
+                    flag2 = 1;
+                j++;//最后的j是当前course数组所存有的课程总数
+            }
+            if (flag1 == 0 && flag2 != 0)
+                courses[j] = resultsC[k].front;
+            else if (flag2 == 0 && flag1 != 0)
+                courses[j] = resultsC[k].rear;
+            else if (flag1 == 0 && flag2 == 0) {
+                courses[j] = resultsC[k].front;
+                courses[++j] = resultsC[k].rear;
+            } else continue;
+
+            System.out.println(j + ":" + courses[j]);
+            ++j;
+            if (courses[j] != null)
+                System.out.println((j) + ":" + courses[j]);
+        }
+
+        System.out.println("课程数：" + j);
         elemCount = j;
-        System.out.println("关系数："+i);
+        System.out.println("关系数：" + i);
         relationCount = i;
 
         int lineNum = i, courseNum = j;
         i--;
-        while (i>=0){
+        while (i >= 0) {
             resultsI[i] = new theResults();//实例化theResults对象
-            for(j=0;j<courseNum;j++) {
-                if((resultsC[i].front).equals(courses[j])) {
+            for (j = 0; j < courseNum; j++) {
+                if ((resultsC[i].front).equals(courses[j])) {
                     resultsI[i].front = j + "";//下标数字转换成字符
                 }
-                if((resultsC[i].rear).equals(courses[j])) {
+                if ((resultsC[i].rear).equals(courses[j])) {
                     resultsI[i].rear = j + "";//下标数字转换成字符
                 }
             }
             i--;
         }//彻底把resultsC[]转换成resultsI[]
-        for(i=0; i<lineNum; i++){//把“0” “1”变成“0，1”，存在results里
-            String s= i+"";
-            results[i]= s+","+resultsI[i].front + "," + resultsI[i].rear;
-            System.out.println("results["+i+"]:"+results[i]);
+        for (i = 0; i < lineNum; i++) {//把“0” “1”变成“0，1”，存在results里
+            String s = i + "";
+            results[i] = s + "," + resultsI[i].front + "," + resultsI[i].rear;
+            System.out.println("results[" + i + "]:" + results[i]);
         }
         syncData();
+
+        JFXAlert alert = new JFXAlert(thisStage);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setOverlayClose(false);
+        JFXDialogLayout layout = new JFXDialogLayout();
+        layout.setHeading(new Label("提示"));
+        layout.setBody(new Label("导入成功！"));
+
+        JFXButton confirmButton = new JFXButton("确定");
+        confirmButton.getStylesheets().add("/res/CSS/main.css");
+        confirmButton.setOnAction(event -> thisStage.close());
+
+        layout.setActions(confirmButton);
+        alert.setContent(layout);
+        alert.show();
     }
 
     public void syncData() {
@@ -152,8 +181,8 @@ public class ImportController {
         MainController.elemCount = elemCount;
 
         String s = "";
-        for(int i = 0; i < relationCount; i++){
-            s += results[i]+"\n";
+        for (int i = 0; i < relationCount; i++) {
+            s += results[i] + "\n";
         }
         MainController.graphContent = s;
         System.out.println(s);
