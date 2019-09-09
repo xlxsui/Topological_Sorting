@@ -72,6 +72,8 @@ public class ShowController {
 
     ArrayList<Integer> verIndex = new ArrayList();
 
+    int cnt = 0;
+
     String graphContent = MainController.graphContent;
 
     int n=-1; //记录顶点的个数
@@ -94,18 +96,25 @@ public class ShowController {
 
     public void showResults() {
         topologicalSorting();
-        int[] topo = new int[n];
         String ok = "";
-        for(int i=0;i<numTopoResult;i++){
-            String showText = "第"+(i+1)+"种：\n";
-            String[] elem = topoResults[i].split(",");
-            for(int j=0;j<n;j++)topo[j]= Integer.parseInt(elem[j]);
-            for(int j=0;j<n-1;j++)showText += elements[topo[j]] + "->";
-            showText += elements[topo[n-1]] + "\n\n";
-            ok += showText;
+        if(cnt < n){
+            ok = "输入关系成环，无法进行拓扑排序！";
         }
-        Str = ok;
-        showText.setText(ok);
+        else {
+            int[] topo = new int[n];
+
+            for (int i = 0; i < numTopoResult; i++) {
+                String showText = "第" + (i + 1) + "种：\n";
+                String[] elem = topoResults[i].split(",");
+                for (int j = 0; j < n; j++) topo[j] = Integer.parseInt(elem[j]);
+                for (int j = 0; j < n - 1; j++) showText += elements[topo[j]] + "->";
+                showText += elements[topo[n - 1]] + "\n\n";
+                ok += showText;
+            }
+        }
+            Str = ok;
+            showText.setText(ok);
+
     }
 
     public void buildGraph(String graphContent) {  //传入的是名为graphContent的字符
@@ -150,12 +159,12 @@ public class ShowController {
         }
     }
 
-    public void dfs(int cnt){
+    public void dfs(int t){
         ArrayList<Vertex> vertexsback = new ArrayList();
         if(numTopoResult >= 3000){
             return;
         }
-        if(cnt==n){                                           //如果结果成立则将结果赋值
+        if(t==n){                                           //如果结果成立则将结果赋值
             for(int i=0;i<n;i++){                             //将排序结果循环加入
                 topoResults[numTopoResult] += ans[i] + ",";
             }
@@ -174,7 +183,8 @@ public class ShowController {
                 v.adjEdges.clear();//清空所有邻接点
                 visit[v.vertexLabel]=1;
                 ans[cnt]=v.vertexLabel;
-                dfs(cnt+1);
+                cnt ++;
+                dfs(cnt);
 
                 for(int k=0;k<vertexsback.size();k++) {
                     Vertex v1 = vertexsback.get(k);
@@ -199,7 +209,7 @@ public class ShowController {
             ans[i] = 0;
         }
         buildGraph(graphContent);
-        dfs(0);
+        dfs(cnt);
     }
 
     public void showHTML() throws URISyntaxException, IOException {
