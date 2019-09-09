@@ -182,9 +182,9 @@ public class ShowController {
 
                 v.adjEdges.clear();//清空所有邻接点
                 visit[v.vertexLabel]=1;
-                ans[cnt]=v.vertexLabel;
-                cnt ++;
-                dfs(cnt);
+                ans[t]=v.vertexLabel;
+                cnt += 1;
+                dfs(t++);
 
                 for(int k=0;k<vertexsback.size();k++) {
                     Vertex v1 = vertexsback.get(k);
@@ -209,7 +209,7 @@ public class ShowController {
             ans[i] = 0;
         }
         buildGraph(graphContent);
-        dfs(cnt);
+        dfs(0);
     }
 
     public void showHTML() throws URISyntaxException, IOException {
