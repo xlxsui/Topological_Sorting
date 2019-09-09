@@ -61,7 +61,7 @@ public class MainController {
         String way = comboBox.getValue().toString();
         if (way.equals("导入")) {
             //动态加载窗口fxml界面
-            URL location = getClass().getResource("../fxml/import.fxml");
+            URL location = getClass().getResource("/main/fxml/import.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(location);
             fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -76,13 +76,13 @@ public class MainController {
 
 
             //set Icon
-            importStage.getIcons().add(new Image("res/Image/icon.png"));
+            importStage.getIcons().add(new Image(getClass().getResource("/main/resources/image/icon.png").toExternalForm()));
             importStage.setTitle("拓扑排序应用系统");
             importStage.setScene(new Scene(importRoot, 600, 400));
             importStage.show();
         } else if (way.equals("输入")) {
             //动态加载窗口fxml界面
-            URL location = getClass().getResource("../fxml/input.fxml");
+            URL location = getClass().getResource("/main/fxml/input.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(location);
             fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -98,7 +98,7 @@ public class MainController {
 
 
             //set Icon
-            inputStage.getIcons().add(new Image("res/Image/icon.png"));
+            inputStage.getIcons().add(new Image(getClass().getResource("/main/resources/image/icon.png").toExternalForm()));
             inputStage.setTitle("拓扑排序应用系统");
             inputStage.setScene(new Scene(inputRoot, 600, 550));
             inputStage.show();
@@ -109,7 +109,7 @@ public class MainController {
     }
 
     public void closeShow() throws IOException {
-        URL location = getClass().getResource("../fxml/show.fxml");
+        URL location = getClass().getResource("/main/fxml/show.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -126,7 +126,7 @@ public class MainController {
 
 
         //set Icon
-        showStage.getIcons().add(new Image("res/Image/icon.png"));
+        showStage.getIcons().add(new Image(getClass().getResource("/main/resources/image/icon.png").toExternalForm()));
         showStage.setTitle("拓扑排序应用系统");
         showStage.setScene(new Scene(showRoot, 1200, 900));
         showStage.show();
@@ -150,7 +150,7 @@ public class MainController {
 
     public void closeSearch() throws IOException {
         //动态加载窗口fxml界面
-        URL location = getClass().getResource("../fxml/search.fxml");
+        URL location = getClass().getResource("/main/fxml/search.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -167,7 +167,7 @@ public class MainController {
         searchController.showResults();
 
         //set Icon
-        searchStage.getIcons().add(new Image("res/Image/icon.png"));
+        searchStage.getIcons().add(new Image(getClass().getResource("/main/resources/image/icon.png").toExternalForm()));
         searchStage.setTitle("拓扑排序应用系统");
         searchStage.setScene(new Scene(searchRoot, 1200, 900));
         searchStage.show();
@@ -252,11 +252,11 @@ public class MainController {
         layout.setBody(new Label("确定退出吗？"));
 
         JFXButton confirmButton = new JFXButton("确定");
-        confirmButton.getStylesheets().add("/res/CSS/main.css");
+        confirmButton.getStylesheets().add("/main/resources/CSS/main.css");
         confirmButton.setOnAction(event -> System.exit(0));
 
         JFXButton closeButton = new JFXButton("取消");
-        closeButton.getStylesheets().add("/res/CSS/main.css");
+        closeButton.getStylesheets().add("/main/resources/CSS/main.css");
         closeButton.setOnAction(event -> alert.hideWithAnimation());
 
         layout.setActions(confirmButton, closeButton);

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.net.URL;
 
@@ -15,7 +16,7 @@ public class WelcomeController {
 
     public void onWelcomeBtnClicked() throws Exception {
         //动态加载窗口fxml界面
-        URL location = getClass().getResource("../fxml/main.fxml");
+        URL location = getClass().getResource("/main/fxml/main.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -30,7 +31,7 @@ public class WelcomeController {
 
 
         //set Icon
-        mainStage.getIcons().add(new Image("res/Image/icon.png"));
+        mainStage.getIcons().add(new Image(getClass().getResource("/main/resources/image/icon.png").toExternalForm()));
         mainStage.setTitle("拓扑排序应用系统");
         mainStage.setScene(new Scene(mainRoot, 600, 400));
         mainStage.show();

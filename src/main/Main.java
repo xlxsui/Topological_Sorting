@@ -17,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         //动态加载窗口fxml界面
-        URL location = getClass().getResource("fxml/welcome.fxml");
+        URL location = getClass().getResource("/main/fxml/welcome.fxml");//getResource是定位到当前类目录，..jar返回不了，注意大小写。/开头定位到根目录，相当于src
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -30,7 +30,7 @@ public class Main extends Application {
 
 
         //set Icon
-        primaryStage.getIcons().add(new Image("res/Image/icon.png"));
+        primaryStage.getIcons().add(new Image(getClass().getResource("/main/resources/image/icon.png").toExternalForm()));
         primaryStage.setTitle("拓扑排序应用系统");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();

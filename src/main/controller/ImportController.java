@@ -168,7 +168,7 @@ public class ImportController {
         layout.setBody(new Label("导入成功！"));
 
         JFXButton confirmButton = new JFXButton("确定");
-        confirmButton.getStylesheets().add("/res/CSS/main.css");
+        confirmButton.getStylesheets().add("/main/resources/CSS/main.css");
         confirmButton.setOnAction(event -> thisStage.close());
 
         layout.setActions(confirmButton);

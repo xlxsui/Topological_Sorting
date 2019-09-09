@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import GraphViz.GraphViz;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -39,11 +40,11 @@ public class ShowController {
 
     int maxn = 3000;   //最多给输出1万种可能
 
-    int N=MainController.N;
+    int N = MainController.N;
 
     String[] elements = MainController.elements;
 
-    public class tr{
+    public class tr {
         String front;
         String rear;
     }
@@ -76,7 +77,7 @@ public class ShowController {
 
     String graphContent = MainController.graphContent;
 
-    int n=-1; //记录顶点的个数
+    int n = -1; //记录顶点的个数
 
     String[] topoResults = new String[maxn];  //用来记录结果
 
@@ -92,15 +93,14 @@ public class ShowController {
 
     int[] justOneIndex = new int[N];  //用来记录没有先修关系课程的序号
 
-    GraphViz gViz = new GraphViz("showGif","D:\\", "D:\\Graphviz\\bin\\dot.exe");
+    GraphViz gViz = new GraphViz("showGif", "D:\\", "D:\\Graphviz\\bin\\dot.exe");
 
     public void showResults() {
         topologicalSorting();
         String ok = "";
-        if(cnt < n){
+        if (cnt < n) {
             ok = "输入关系成环，无法进行拓扑排序！";
-        }
-        else {
+        } else {
             int[] topo = new int[n];
 
             for (int i = 0; i < numTopoResult; i++) {
@@ -112,8 +112,8 @@ public class ShowController {
                 ok += showText;
             }
         }
-            Str = ok;
-            showText.setText(ok);
+        Str = ok;
+        showText.setText(ok);
 
     }
 
@@ -133,13 +133,12 @@ public class ShowController {
             if (startNodeLabel != 0) {
                 if (verIndex.contains(endNodeLabel)) {
                     vertexs.get(endNodeLabel).inDegree++;
-                }
-                else {
+                } else {
                     endNode.inDegree++;  //对有先修关系的点的入度+1
                 }
             }
 
-            if(!verIndex.contains(startNodeLabel)){
+            if (!verIndex.contains(startNodeLabel)) {
                 verIndex.add(startNodeLabel);
                 vertexs.add(startNode);
                 n++;
@@ -150,7 +149,7 @@ public class ShowController {
                 n++;
             }
 
-            if(startNodeLabel != 0) {
+            if (startNodeLabel != 0) {
                 Vertex v = vertexs.get(endNodeLabel);
                 Edge e = new Edge(v);
                 Vertex v1 = vertexs.get(startNodeLabel);
@@ -159,34 +158,34 @@ public class ShowController {
         }
     }
 
-    public void dfs(int t){
+    public void dfs(int t) {
         ArrayList<Vertex> vertexsback = new ArrayList();
-        if(numTopoResult >= 3000){
+        if (numTopoResult >= 3000) {
             return;
         }
-        if(t==n){                                           //如果结果成立则将结果赋值
-            for(int i=0;i<n;i++){                             //将排序结果循环加入
+        if (t == n) {                                           //如果结果成立则将结果赋值
+            for (int i = 0; i < n; i++) {                             //将排序结果循环加入
                 topoResults[numTopoResult] += ans[i] + ",";
             }
             numTopoResult++;
         }
 
-        for(int i=1;i<=n;i++){
+        for (int i = 1; i <= n; i++) {
             Vertex v = vertexs.get(i);//循环取出点
-            if((v.inDegree == 0)&&(visit[v.vertexLabel]==0)){//如果点的入度为零并且点没有被访问过
+            if ((v.inDegree == 0) && (visit[v.vertexLabel] == 0)) {//如果点的入度为零并且点没有被访问过
 
-                for(int k=0;k<v.adjEdges.size();k++) {
+                for (int k = 0; k < v.adjEdges.size(); k++) {
                     v.adjEdges.get(k).endVertex.inDegree--;
                     vertexsback.add(v.adjEdges.get(k).endVertex);
                 }
 
                 v.adjEdges.clear();//清空所有邻接点
-                visit[v.vertexLabel]=1;
-                ans[t]=v.vertexLabel;
+                visit[v.vertexLabel] = 1;
+                ans[t] = v.vertexLabel;
                 cnt += 1;
-                dfs(t++);
+                dfs(t + 1);
 
-                for(int k=0;k<vertexsback.size();k++) {
+                for (int k = 0; k < vertexsback.size(); k++) {
                     Vertex v1 = vertexsback.get(k);
                     v1.inDegree++;
                     Edge e = new Edge(v1);
@@ -199,13 +198,13 @@ public class ShowController {
     }
 
     public void topologicalSorting() {
-        for(int i=0;i<=n;i++){
+        for (int i = 0; i <= n; i++) {
             visit[i] = 0;
         }
-        for(int i=0;i<maxn;i++){
+        for (int i = 0; i < maxn; i++) {
             topoResults[i] = new String();
         }
-        for(int i=0;i<maxn;i++){
+        for (int i = 0; i < maxn; i++) {
             ans[i] = 0;
         }
         buildGraph(graphContent);
@@ -219,7 +218,7 @@ public class ShowController {
 
     public void draw() throws MalformedURLException {
 
-        for (int i=0; i<normal.length; i++)
+        for (int i = 0; i < normal.length; i++)
             normal[i] = new tr();
 
         DoubleProperty zoomProperty = new SimpleDoubleProperty(200);
@@ -244,39 +243,39 @@ public class ShowController {
 
         //将单个的课程存储下来，并且记录他们的序号
         int numJustOne = 0;
-        for(int i=0;i<N;i++){
-            if(relationships[i].front.equals("无")){
+        for (int i = 0; i < N; i++) {
+            if (relationships[i].front.equals("无")) {
                 justOne[numJustOne] = relationships[i].rear;
                 justOneIndex[numJustOne] = i;
-                numJustOne ++;
+                numJustOne++;
             }
         }
 
         //将不是单个的放进normal数组
         int normalIndex = 0;
-        int isIn=0;
-        for(int i=0;i<N;i++){
-            isIn=0;
-            for(int j=0;j<numJustOne;j++){
-                if(i == justOneIndex[j]){
+        int isIn = 0;
+        for (int i = 0; i < N; i++) {
+            isIn = 0;
+            for (int j = 0; j < numJustOne; j++) {
+                if (i == justOneIndex[j]) {
                     isIn = 1;
                     break;
                 }
             }
-            if(isIn == 0){
+            if (isIn == 0) {
                 normal[normalIndex].front = relationships[i].front;
                 normal[normalIndex].rear = relationships[i].rear;
-                normalIndex ++;
+                normalIndex++;
             }
         }
 
         //等待relationships变量，即可启用
         gViz.start_graph();
         gViz.addln("node [fontname=\"SimHei\",size=\"15,15\",sides=5,color=lightblue,style=filled];");
-        for(int i=0;i<numJustOne;i++){
+        for (int i = 0; i < numJustOne; i++) {
             gViz.addln(justOne[i] + ";");
         }
-        for(int i=0;i<normalIndex;i++){
+        for (int i = 0; i < normalIndex; i++) {
             gViz.addln(normal[i].front + "->" + normal[i].rear + ";");
         }
         gViz.end_graph();
