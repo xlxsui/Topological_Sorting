@@ -8,4 +8,9 @@
 如要正常使用关系图显示功能，请下载https://graphviz.gitlab.io/_pages/Download/windows/graphviz-2.38.msi
 下载完成后启动graphViz，将程序安装到D盘下，命名为graphViz。谢谢合作。
 
-运行环境：IDEA集成环境，运行Main类的main方法
+利用拓扑排序算法实现有序事件的排序
+
+运行环境：jetbrains的IDEA，首先要下载项目，可以使用git下载命令： git clone https://github.com/xlxs123/Topological_Sorting.git
+然后从IDEA打开项目，电脑要JAVA环境，测试时使用jdk版本为1.8
+
+运行方法：运行Main类的main方法
