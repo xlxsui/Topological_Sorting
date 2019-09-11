@@ -10,7 +10,7 @@
 
 利用拓扑排序算法实现有序事件的排序
 
-运行环境：jetbrains的IDEA，首先要下载项目，可以使用git下载命令： git clone https://github.com/xlxs123/Topological_Sorting.git
-然后从IDEA打开项目，电脑要JAVA环境，测试时使用jdk版本为1.8
+运行环境：jetbrains的IDEA，没有源文件首先要下载项目，可以使用git下载命令： git clone https://github.com/xlxs123/Topological_Sorting.git
+然后从IDEA打开项目，直接选择Topological Sorting文件夹打开，电脑要JAVA环境，测试时使用jdk版本为1.8
 
 运行方法：运行Main类的main方法
